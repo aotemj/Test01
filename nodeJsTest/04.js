@@ -46,8 +46,27 @@
 // console.log(buf9.toString());//乱码
 
 //4. Buffer.concat();
-	let buf10 = Buffer.from('hello');
-	let buf11 = Buffer.from('world');
-	let buf12 = Buffer.concat([buf10,buf11]);
-	console.log(buf12);
-	console.log(buf12.toString());
+	// let buf10 = Buffer.from('hello');
+	// let buf11 = Buffer.from('world');
+	// let buf12 = Buffer.concat([buf10,buf11]);
+	// console.log(buf12);
+	// console.log(buf12.toString());
+
+//----------------------------------------------------
+//实例方法
+
+	//write()方法
+	// let buf = Buffer.alloc(5);
+	// buf.write('hello',1,2);//'he' //在buf对象中写入字符串'hello',从buf对象第1位开始，写入两个字符
+	// console.log(buf);
+	// console.log(buf.toString());
+
+	//slice()方法：
+	// let buf  = Buffer.from('hello');
+	// let buf1 = buf.slice(1,2);//将buf对象从第1位开始切割，切割刀第2位结束，不改变原始buffer对象
+	// console.log(buf1.toString());
+
+	//toJSON()方法：(toJSON方法不需要显示的调用，在调用JSON.stringify方法时，会自动调用toJSON方法)
+	let buf = Buffer.from('hello');
+	let bufJson = JSON.stringify(buf);
+	console.log(bufJson);//{"type":"Buffer","data":[104,101,108,108,111]}

@@ -48,4 +48,26 @@
 		let buf3 = Buffer.concat([buf1,buf2]);
 		console.log(buf3.toString());//'helloworld'
 ````
+- 实例方法：
+ + write();
+ 	作用： 在buffer实例对象中写入内容
+````js
+	let buf = Buffer.alloc(5);
+	buf.write('hello');
+````
 
+ + slice(start,end);
+	作用： 将原始buffer从start坐标切割，切割到end坐标，不改变原始buffer对象，新对象需要保存
+````js
+	let buf = Buffer.from('hello');
+	let buf1 = Buffer.slice(1,2);//'e'， 将buf 从第1位开始切割，切割到第2位，新切割的值保存在buf1中
+	console.log(buf1);
+````
++ toJSON();
+	作用：将buffer实例对象转换成json形式的字符串，这个方法不需要显示的调用，当JSON.stringify方法调用的时候会自动调用toJSON方法
+
+````js
+	let buf = Buffer.from('hello');
+	let bufJson = JSON.stringify(buf);
+	console.log(bufJson);//
+````
