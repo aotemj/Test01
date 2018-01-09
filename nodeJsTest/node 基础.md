@@ -29,7 +29,6 @@
 		let isBuf = Buffer.isBuffer(buf);//true
 		let obj = {};
 		let isBuf2 = Buffer.isBuffer(obj);//false,obj 不是Buffer的实例对象
-
 ````
 	+ Buffer.byteLength();
 		作用：返回被检测buffer实例对象的字节长度
@@ -71,3 +70,79 @@
 	let bufJson = JSON.stringify(buf);
 	console.log(bufJson);//
 ````
+### 路径操作
+	进行路径操作之前首先要引入path模块：
+````js
+	const path = require('path');
+````
+- path.filename
+	作用： 获取文件的全路径
+````js
+	console.log(__filename);//全路径即绝对路径：'D:\wamp\www\Test\nodeJsTest\05.js'
+````
+- path.basename(目标路径);
+	作用：获取目标路径的最后一部分（文件名）；
+````js
+	path.basename('foo/123/456/index.html');//'index.html'
+````
+
+- path.dirname(目标路径)：
+	作用： 获取目标路径的文件路径（不包含文件名）
+````js
+	path.dirname('foo/123/456/index.html');//'foo/123/456'
+````
+
+- 获取当前文件的文件名
+ '__dirname';
+
+- path.extname(目标路径);
+	作用： 获取目标路径的扩展名
+````js
+	console.log(path.extname('index.html'));//'.html'
+	console.log(path.extname('foo/123/456/index.html'));//'.html'
+````
+- 路径的格式化：
+ + path.format();
+ 	作用： 将对象转成字符串：（obj-->string）
+
+````js
+	const filename = __filename;
+	let filenameObj = path.parse(filename);
+	let filenameStr = path.format(filenameObj);
+	console.log(filenameStr);//'D:\wamp\www\Test\nodeJsTest\05.js'
+````
+ + path.parse();
+ 作用： 将字符串转成对象： （string-->obj）
+````js
+const filename = __filename;
+console.log(path.parse(__filename));
+//得到的结果：
+/*{ root: 'D:\\', //文件根目录
+  dir: 'D:\\wamp\\www\\Test\\nodeJsTest',//文件全路径（不包括扩展名）
+  base: '05.js',//文件名、扩展名
+  ext: '.js',//扩展名
+  name: '05' }//文件名
+  */
+````
+- 拼接路径：
+	+ path.join();
+	作用： 将多个路径拼接为一个路径,这个方法会忽略单个路径中的'\'和'/','..'表示上层目录
+````js
+console.log(path.join('/foo','\add','yel','/abc','..'));//'\foo\add\yel'
+console.log(path.join('..123','foo,/','abc','zzz'));//..123\foo,\abc\zzz
+````
+- 规范化路径：
++ path.normalize();
+作用：将不符合规范的路径规范化,这个方法不够智能，不能将路径中不应该存在的符号去掉，使用时需要注意
+````js
+console.log(path.normalize('foo/,123/abgc\zz.index'));//foo\,123\abgczz.index
+console.log(path.normalize('c:\\foo/,123/abgc\zz.index'));//c:\foo\,123\abgczz.index
+````
+
+- 两个特殊的属性：
+	+ path.delimiter
+		作用：表示路径分隔符： window 中是\  linux 中是/
+	+ path.sep
+		作用： 表示环境变量分隔符：windowh中是 ; linux 中使用 :
+
+
