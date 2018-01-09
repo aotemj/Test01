@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body ng-app="myApp" >
+	<div class="box" my-btn ng-transclude>通过属性名创建的模板</div>
+	<div class="my-btn" ng-transclude>通过类名添加的模板</div>
+	<my-btn ng-transclude>通过标签名创建的模板</my-btn>
+	<script id="tmp" type="text/ng-template">
+		<ul>
+			<li>通过templateUrl添加的带有restrict属性的模板</li>
+		</ul>
+	</script>
+	<script src="angular.js"></script>
+	<script>
+		var app = angular.module("myApp",[]);
+		app.directive("myBtn",[function(){
+			return {
+				templateUrl:'tmp',
+				restrict:"ACE",
+				transclude:true,
+			};
+		}]);
+	</script>
+</body>
+</html>

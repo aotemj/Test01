@@ -1,0 +1,30 @@
+<!--list -->
+<view class="list-container">
+  <!-- 表头 -->
+  <text class="title">{{title}}</text>
+  <!-- list主要内容 -->
+  <scroll-view class="list" scroll-y>
+    <!-- 列表项 -->
+   <navigator wx:for="{{list}}" url="../item/item?id={{item.id||item.subject.id}}" wx:key="">
+      <view class="list-item">
+        <view class="img">
+          <!-- <image src="{{item.images.small}}"/> -->
+          <image src="{{item.images.small||item.subject.images.small}}"/>
+        </view>
+        <view class="info">
+          <view class="score">{{item.rating.average||item.subject.rating.average||0}}</view>
+          <view class="content">
+            <text class="name">{{item.title||item.subject.title}}\n</text>
+            <text class="original-name">{{item.original_title||item.subject.original_title}}\n</text>
+            <text class="director">导演：
+              <text wx:for="{{item.directors||item.subject.directors}}" wx:key="">{{item.name}} </text>
+            </text>
+          </view>
+        </view>
+     </view>
+    <!--  <view class="list-item">
+       <view class="img"></view>
+     </view> -->
+   </navigator>
+ </scroll-view>
+</view>

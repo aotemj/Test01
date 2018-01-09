@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<form>
+			<label for="">用户名:<input type="text" name="username" id="username"></label><span id="info"></span><br>
+			<label for="">密 码:<input type="password" name="password" id="password"></label><br>
+			<input type="button" value="登录" id="login" />
+		</form>
+		<script>
+			window.onload = function() {
+				function getEle(eleName) {
+					return document.querySelector(eleName);
+				}
+				var info = getEle("#info");
+				var btn = getEle("#login");
+				btn.onclick = function() {
+					var uname = document.querySelector("#username");
+					var pw = document.querySelector("#password");
+
+					//1.创建XMLHttpRequest实例对象
+					var x = new XMLHttpRequest();
+					//2.准备发送:
+					var param = 'username=' + uname.value + "&password=" + pw.value;
+					x.open('post', 'post.php');
+					//3.发送:
+					x.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+					x.send(param);
+					//4.服务器返回响应数据:
+					x.onreadystatechange = function() {
+						if(x.readyState == 4 && x.status == 200) {
+							console.log(x.responseText);
+							if(x.responseText == "1") {
+								info.innerHTML = "登录成功";
+							} else {
+								info.innerHTML = "您的输入有误,请重新输入";
+							}
+						}
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>

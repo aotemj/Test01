@@ -1,0 +1,137 @@
+<!DOCTYPE doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+            <title>
+                Ajax增删改查案例
+            </title>
+            <link href="style.css" rel="stylesheet" type="text/css">
+                <script src="jquery.js" type="text/javascript">
+                </script>
+                <script src="mygg2.js" type="text/javascript">
+                </script>
+                <script src="template.js">
+                </script>
+                <script id="books" type="text/html">
+                    {{each  as value}}
+                        <tr>
+                        <td>{{value.id}}</td>
+                        <td>{{value.bookName}}</td>
+                        <td>{{value.bookAuthor}}</td>
+                        <td>{{value.category}}</td>
+                        <td>{{value.recommend}}</td>
+                        <td>{{value.bookDesc}}</td>
+                        <td><a href="javascript:;">修改</a>|<a href="javascript:;">删除</a></td>
+                        </tr>
+                    {{/each}}
+                </script>
+            </link>
+        </meta>
+    </head>
+    <body>
+        <div id="infoArea">
+            <form id="formId">
+                <div id="opeInfo">
+                    图书信息管理
+                </div>
+                <div>
+                    <input id="id" name="id" type="hidden">
+                        <span>图书名称
+                        </span>
+                        <span>
+                            <input id="bookName" name="bookName" type="text"/>
+                        </span>
+                    </input>
+                </div>
+                <div>
+                    <span>
+                        图书作者
+                    </span>
+                    <span>
+                        <input id="bookAuthor" name="bookAuthor" type="text"/>
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        是否推荐
+                    </span>
+                    <span>
+                        是
+                        <input name="recommend" type="radio" value="1">
+                            否
+                            <input name="recommend" type="radio" value="2">
+                            </input>
+                        </input>
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        图书分类
+                    </span>
+                    <span>
+                        <input name="category[]" type="checkbox" value="1">
+                            计算机
+                            <input name="category[]" type="checkbox" value="2">
+                                文学
+                                <input name="category[]" type="checkbox" value="3">
+                                    会计
+                                </input>
+                            </input>
+                        </input>
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        图书描述
+                    </span>
+                    <textarea cols="20" id="bookDesc" name="bookDesc" rows="3">
+                    </textarea>
+                </div>
+                <div>
+                    <input id="btn" type="button" value="提交">
+                    </input>
+                </div>
+            </form>
+        </div>
+        <div id="bookList">
+            <table cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            编号
+                        </th>
+                        <th>
+                            图书名称
+                        </th>
+                        <th>
+                            图书作者
+                        </th>
+                        <th>
+                            图书分类
+                        </th>
+                        <th>
+                            是否推荐
+                        </th>
+                        <th>
+                            图书描述
+                        </th>
+                        <th>
+                            操作
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <tr>
+                    <td>1</td>
+                    <td>三国演义</td>
+                    <td>罗贯中</td>
+                    <td>文学</td>
+                    <td>是</td>
+                    <td>杀伐纷争的年代</td>
+                    <td><a href="javascript:;">修改</a>|<a href="javascript:;">删除</a></td>
+                </tr> -->
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

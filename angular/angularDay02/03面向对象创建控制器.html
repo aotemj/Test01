@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="angular.js"></script>
+</head>
+<body ng-app ="myApp">
+		<div class="box" ng-controller="myController as obj">
+			{{obj.name}}
+		</div>
+		<script>
+			var app =angular.module('myApp',[]);
+			app.controller('myController',function(){
+				this.name="xiaoming";
+			});
+		</script>
+</body>
+</html>

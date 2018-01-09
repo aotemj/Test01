@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="angular.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+	<input type="text" ng-model="money"><input type="button" value="取钱" ng-click="fn()"><br>
+	<span>余额:{{surplusMoney}}</span>
+	<span>{{info}}</span>
+<script>
+	var app =angular.module('myApp',[]);
+	app.controller('myController',function($scope){
+			$scope.surplusMoney=1000;
+			$scope.money=10;
+		$scope.fn=function(){
+			if(($scope.money-0)<($scope.surplusMoney-0)){
+				$scope.info="取钱成功";
+				$scope.surplusMoney-=($scope.money-0);
+			}else{
+				$scope.info="余额不足";
+				return;
+			}
+		}
+	});
+</script>
+</body>
+</html>

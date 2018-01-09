@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src='packagingAjax.js'></script>
+	</head>
+
+	<body>
+		<div id='info'></div>
+		<input type="button" value="刷新" id='btn' />
+		<script>
+			var btn = document.querySelector('#btn');
+			btn.onclick = function() {
+				//1.手写
+				// var x = new XMLHttpRequest();
+				// x.open('get', 'test2.php');
+				// x.send(null);
+				// x.onreadystatechange = function() {
+				// 	if(x.readyState == 4 && x.status == 200) {
+				// 		console.log(x.responseText);
+				// 		var data = x.responseText;
+				// 		var obj = JSON.parse(data);
+				// 		var info = document.querySelector("#info");
+				// 		info.innerHTML = "<span>" + obj.name + "</span><span>===================</span><span>" + obj.age + "</span>";
+				// 	}
+				// }
+
+				ajax({
+					data:'',
+					type:'get',
+					dataType:'text',
+					url:'test2.php',
+					success:function(data){
+						var info = document.querySelector("#info");
+						var obj = JSON.parse(data);
+						// console.log(obj.name);
+						info.innerHTML="<span>" + obj.name + "</span><span>===================</span><span>" + obj.age + "</span>";
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,8 @@
+1.ajax是什么
+
+2.请写出发送一个ajax请求需要经历那些步骤
+
+3.ajax请求的status有哪几个？分别代表什么意思？
+
+4.XMLHttpRequest对象的readyState属性有5种值，分别代表ajax请求的5个阶段，
+请描述这5个值与其对应的阶段

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <title>
+                helper-demo
+            </title>
+            <script src="template.js">
+            </script>
+        </meta>
+    </head>
+    <body>
+        <h1>
+            自定义过滤器
+        </h1>
+        <div id="content">
+        </div>
+        <script id="test" type="text/html">
+            <!-- 方法1 -->
+            {{time}}
+
+
+            <!-- 方法2 -->
+        </script>
+           <!--  {{time | dateFormat}} -->
+        <script>
+            /**
+             * 对日期进行格式化，
+             * @param date 要格式化的日期
+             * @param format 进行格式化的模式字符串
+             *     支持的模式字母有：
+             *     y:年,
+             *     M:年中的月份(1-12),
+             *     d:月份中的天(1-31),
+             *     h:小时(0-23),
+             *     m:分(0-59),
+             *     s:秒(0-59),
+             *     S:毫秒(0-999),
+             *     q:季度(1-4)
+             * @return String
+             * @author yanis.wang
+             * @see http://yaniswang.com/frontend/2013/02/16/dateformat-performance/
+             */
+
+    //方法2:使用art templte提供的过滤器语法操作:
+    // template.defaults.imports.dateFormat =  function (date, format) {
+    //     var date = new Date(date);
+    //     return date.getFullYear()+'年'+(date.getMonth()+1)+'月'+date.getDay()+'日'+(date.getHours()>12?'下午':'上午')+date.getHours()%12+':'+date.getMinutes()+':'+date.getSeconds();
+    // };
+  //  var html = template('test', data);
+
+    var data = {
+        time: 1408536771253
+    };
+
+    //方法1:封装转换时间格式的函数,并使用转换后的格式
+    function changeTimeType(data){
+        var date = new Date(data);
+        return date.getFullYear()+'年'+(date.getMonth()+1)+'月'+date.getDay()+'日'+(date.getHours()>12?'下午':'上午')+date.getHours()%12+':'+date.getMinutes()+':'+date.getSeconds();
+    }
+
+
+    // console.log(data.time);
+    // console.log(new Date(data.time));
+     data.time = changeTimeType(data.time);
+     console.log(data);
+    var html = template('test', data);
+
+    document.getElementById('content').innerHTML = html;
+        </script>
+    </body>
+</html>

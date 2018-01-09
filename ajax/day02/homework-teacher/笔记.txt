@@ -1,0 +1,63 @@
+1.$_GET:php中用来获取前端传递的get请求参数
+  $_POST:php中用来获取前端传递的post请求参数
+
+form表单默认提交的是get请求，如果想要更改请求的方式，需要修改form表单的method属性，如下：
+<form action='xx.php' method='post'>
+</form>
+
+补充：php页面显示中文的时候默认采用GBK的编码格式，如果想要正常显示中文，需要修改编码格式为UTF-8
+header("Content-Type:text/plain;charset=UTF-8");
+
+2.发送get请求
+//A.创建对象
+var x = new XMLHttpRequest();
+//B.准备发送
+var param = 'username=jack&password=123';
+//注意：IE浏览器可能会不兼容中文，需要进行转码解决不兼容的问题
+param = encodeURI( param );
+x.open("get","01.php?"+param);
+
+//C.进行发送
+x.send(null);
+
+//D.监测服务器的响应
+x.onreadystatechange = function(){
+	if( x.readyState == 4 && x.status == 200 ){
+		alert(x.responseText);
+	}
+}
+
+3.发送post请求
+//A.创建对象
+var x = new XMLHttpRequest();
+//B.准备发送
+x.open("post","01.php");
+//C.进行发送
+//注意：在发送post请求之前，要设置请求头
+x.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
+var param = 'username=jack&password=123';
+x.send( param );
+
+//D.监测服务器的响应
+x.onreadystatechange = function(){
+	if( x.readyState == 4 && x.status == 200 ){
+		alert(x.responseText);
+	}
+}
+
+
+4.XMLHttpRequest对象的readyState属性
+readyState属性的值：0,1,2,3,4
+	0：已经初始化完成了XMLHttpRequest对象（看中了一个商品）
+	1：已经使用XMLHttpRequest对象发送了ajax请求（下了一个订单）
+	2：服务器已经返回了请求的数据（商家根据订单发了快递给你）
+	3：浏览器正在解析服务器返回的数据（你正在打开快递）
+	4：服务器返回的数据已经解析完毕，可以正常使用了（打开了快递，拿到了商品，可以使用）
+
+5.XMLHttpRequest对象的status属性
+status属性的值：200,404,500
+	200：数据是正常的，没有问题（商品可以正常使用，也符号需求）
+	404：page not found。前端写的请求地址写错了。（订单填错）
+	500：服务器端错误。后端开发人员的页面没有写好。（商家发错了货）
+
+

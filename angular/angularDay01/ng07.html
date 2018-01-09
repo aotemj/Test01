@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="angular.js"></script>
+	<script src="jquery.js"></script>
+</head>
+<body>
+	<ul>
+		<li><a href="#find">发现</a></li>
+		<li><a href="#friend">朋友</a></li>
+		<li><a href="#mine">我的</a></li>
+	</ul>
+	<div class="content"></div>
+	<script>
+	$(function(){
+		$(window).on("hashchange",function(){
+				var hash = location.hash;
+				switch(hash){
+					case '#find':
+						$.get('find.json',function(data){
+							$('.content').html(data.data);
+						});
+					break;
+					case '#friend':
+						$.get('friend.json',function(data){
+							$('.content').html(data.data);
+						});
+					break;
+					case '#mine':
+						$.get('mine.json',function(data){
+							$('.content').html(data.data);
+						});
+					break;
+				};
+		});
+	});
+	</script>
+</body>
+</html>

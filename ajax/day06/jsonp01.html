@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+    #container{
+        width: 400px;
+        min-height: 300px;
+        background-color: lightgreen;
+        margin: auto;
+        padding: 10px;
+        text-align: center;
+    }
+    li{
+        list-style: none;
+        text-align: left;
+    }
+
+    </style>
+    <script type="text/javascript" src="./jquery.js"></script>
+    <script src='template.js'></script>
+    <script type='text/html' id='weather'>
+     {{each weather as value}}
+        <ul>
+            <li>白天天气</li>
+            <li> 时间: {{value.date}}</li>
+            <li> 天气: {{value.info.day[1]}}</li>
+            <li> 温度: {{value.info.day[2]}}</li>
+            <li> 风向: {{value.info.day[3]}}</li>
+            <li> 风速: {{value.info.day[4]}}</li>
+
+            <li>夜间天气:</li>
+            <li> 时间: {{value.date}}</li>
+            <li> 天气:{{value.info.night[1]}}</li>
+            <li> 温度:{{value.info.night[2]}}</li>
+            <li> 风向:{{value.info.night[3]}}</li>
+            <li> 风速:{{value.info.night[4]}}</li>
+        </ul>
+   {{/each}}
+    </script>
+  <!--   <script type="text/javascript">
+        $(function(){
+            $("#query").click(function(){
+                var code = $('#city').val();
+                $.ajax({
+                    url : 'http://cdn.weather.hao.360.cn/api_weather_info.php',
+                    data:{app:'hao360',code:code},
+                    jsonp:'_jsonp',
+                    jsonpCallback:'abc',
+                    dataType:'jsonp',
+                    success:function(data){
+                        var w = data.weather;
+                        var tag = '';
+                        $.each(w,function(i,e){
+                            var date = e.date;
+                            var day = e.info.day;
+                            var night = e.info.night;
+
+                            tag += '<div>'+
+                                '<span>日期：'+date+'</span>'+
+                                '<ul>'+
+                                    '<li>白天天气'+day[1]+'</li>'+
+                                    '<li>白天温度'+day[2]+'</li>'+
+                                    '<li>白天风向'+day[3]+'</li>'+
+                                    '<li>白天风速'+day[4]+'</li>'+
+                                '</ul>'+
+                                '<ul>'+
+                                    '<li>夜间天气'+night[1]+'</li>'+
+                                    '<li>夜间温度'+night[2]+'</li>'+
+                                    '<li>夜间风向'+night[3]+'</li>'+
+                                    '<li>夜间风速'+night[4]+'</li>'+
+                                '</ul>'+
+                            '</div>';
+                        });
+                        $('#info').html(tag);
+
+                    }
+                });
+            });
+        });
+    </script> -->
+    <script>
+    	$(function(){
+    		$("#query").click(function(){
+    			var res = $("#city").val();
+                // console.log(res);
+                $.ajax({
+                    dataType:'jsonp',
+                    url:'http://cdn.weather.hao.360.cn/api_weather_info.php',
+                    data:{code:res,app:"hao360"},
+                    jsonp:'_jsonp',
+                    jsonpCallback:'abc',
+                    success:function(data){
+                        console.log(data);
+                        var weather = data.weather;
+                        var html = template('weather',data);
+                        $("#info").html(html);
+                    }
+                });
+    		});
+    	});
+    </script>
+</head>
+<body>
+    <div id="container">
+        <select id="city">
+            <option value="101010100">北京</option>
+            <option value="101020100">上海</option>
+            <option value="101280101">广州</option>
+            <option value="101280601">深圳</option>
+        </select>
+        <input type="button" value="查询" id="query">
+        <div id="info"></div>
+    </div>
+   
+</body>
+</html>
+<!-- http://cdn.weather.hao.360.cn/api_weather_info.php?_jsonp=abc&app=hao360&code=101020100&_=1508897334858 -->

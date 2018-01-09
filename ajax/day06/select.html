@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='jquery.js'></script>
+	<script>
+	$(function(){
+		function renderData(param,callback){
+			$.ajax({
+				type:'get',
+				data:param,
+				dataType:'json',
+				url:'select.php',
+				success:function(data){
+					callback(data);
+				}
+			});
+		};
+		//加载省级数据:
+		renderData({flag:1},function(data){
+			var option = '';
+			$.each(data,function(i,v){
+				option += '<option id="'+v.id+'">'+v.province+'</option>';
+			});
+			$('#province').append(option);
+
+			//获取市级数据:
+			$("#province").change(function(){
+				var pId = $(this).find('option:selected').prop("id");
+				renderData({flag:2,pId:pId},function(data){
+					var option = '<option >请选择市...</option>';
+					$.each(data,function(i,v){
+						option += '<option id="'+v.id+'">'+v.city+'</option>';
+					});
+					$('#city').html(option);
+				});
+
+				//获取县级数据:
+				$("#city").change(function(){
+					var cId = $(this).find('option:selected').prop("id");
+					renderData({flag:3,cId:cId},function(data){
+						var option = '<option >请选择县...</option>';
+						$.each(data,function(i,v){
+							option += '<option id="'+v.id+'">'+v.county+'</option>';
+						});
+						$('#county').html(option);
+					});
+				});
+			});
+		});
+
+	
+			
+			
+			
+		
+	});
+	</script>
+</head>
+<body>
+	省:<select id='province'><option >请选择省...</option></select>
+	市:<select id='city'><option >请选择市...</option></select>
+	县:<select id='county'><option >请选择县...</option></select>
+</body>
+</html>

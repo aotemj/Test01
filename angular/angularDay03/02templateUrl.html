@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body ng-app="myApp">
+	<div my-btn></div>
+	<script id="tmp" type="text/ng-template">
+	<div>
+		<ul>通过templateUrl添加的模板</ul>
+	</div>
+	</script>
+	<script src="angular.js"></script>`
+	<script>
+		var app = angular.module("myApp",[]);
+		app.directive("myBtn",[function(){
+			return {
+				templateUrl:'tmp',
+
+			}
+		}]);
+	</script>
+</body>
+</html>

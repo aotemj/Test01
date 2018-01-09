@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		ul{
+			list-style:none;
+		}
+		li{
+			float: left;
+			padding: 10px 20px;
+			border:1px solid #000;
+		}
+		a{
+			text-decoration:none;
+		}
+		.current{
+			background-color: blue;
+		}
+	</style>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+	<div class="box">
+	<ul>
+		<li class="current"><a href="#">按钮1</a></li>
+		<li><a href="#">按钮2</a></li>
+		<li><a href="#">按钮3</a></li>
+		<li><a href="#">按钮4</a></li>
+		<li><a href="#">按钮5</a></li>
+	</ul>
+	</div>
+	<script src="angular.js"></script>
+	<script>
+		var app =angular.module("myApp",[]);
+		app.controller("myController",["$scope",function($scope){
+				angular.element(document.querySelector("ul")).children().on("click",function(){
+					angular.element(this).parent().children().removeClass("current");
+					angular.element(this).addClass("current");
+				});
+		}]);
+	</script>
+</body>
+</html>

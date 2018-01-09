@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<!-- vue控制区域 -->
+	<div class="layout">
+		<router-link to="/account/login/456">登录</router-link>
+		<router-link to="/account/register/123">注册</router-link>
+		<router-view></router-view>
+	</div>
+	<!-- 根组件 -->
+	<template id="app">
+		<div>
+			<div>账号管理 <router-view></router-view></div>
+		</div>
+	</template>
+	<!-- 登录组件 -->
+	<template id="login">
+		<div>
+			<div>登录组件{{name}}</div>
+		</div>
+	</template>
+	<!-- 注册组件 -->
+	<template id="register">
+		<div>
+			<div>注册组件{{this.$route.params.name}}</div>
+		</div>
+	</template>
+
+	<script src="../vue221.js"></script>
+	<script src="../vue-router231.js"></script>
+	<script>
+		/*定义根组件*/
+		var app = Vue.component("app",{
+			template:"#app",
+		});
+		var login = Vue.component("login",{
+			template:"#login",
+			data:function(){
+				return {
+					name:"",
+				}
+			},
+			created:function(){
+				this.name= this.$route.params.name;
+			}
+		});
+		var register = Vue.component("register",{
+			template:"#register",
+		});
+		var router = new VueRouter({
+			routes:[
+			{
+				path:"/account",component:app,
+				children:[
+					{path:"login/:name",component:login},
+					{path:"register/:name",component:register}
+				],
+			}
+			],
+		});
+		var vm = new Vue({
+			el:".layout",
+			data:{},
+			methods:{},
+			router:router,
+		});
+	</script>
+</body>
+</html>

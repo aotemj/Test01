@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="layout">
+		<div class="box" v-show="isShow">{{msg}}</div>
+		<input type="button" v-on:click="toggle" value="切换状态">
+	</div>
+	<script src="vue1026.js"></script>
+	<script src="vue221.js"></script>
+	<script>
+		var vm = new Vue({
+			el:'.layout',
+			data:{
+				msg:"show",
+				isShow:false,
+			},
+			methods:{
+				toggle:function(){
+					this.isShow=!this.isShow;
+				},
+			}
+		});
+	</script>
+</body>
+</html>

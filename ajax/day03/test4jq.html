@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box {
+				width: 400px;
+				height: 100px;
+				background-color: pink;
+				position: absolute;
+				left: 50%;
+				margin-left: -200px;
+			}
+			
+			form {
+				margin: 0 auto;
+				text-align: center;
+			}
+			
+			#info {}
+		</style>
+	</head>
+
+	<body>
+
+		<div id="box">
+			<form action="">
+				<input type="text" name="books" id="search" />
+				<input type="button" value="查询" id="btn" />
+				<div id="info"></div>
+			</form>
+		</div>
+
+	</body>
+	<script src="jquery.js"></script>
+	<script>
+		$("#btn").on("click", function() {
+			$.ajax({
+				type: 'get',
+				data: {
+					'books': $("#search").val()
+				},
+				url: 'test4.php',
+				dataType: "text",
+				success: function(data) {
+					if(data == 0) {
+						$("#info").html("您要查找的书籍不存在");
+					} else {
+						data = JSON.parse(data);
+						$("#info").html("<ul><li>书名:" + data.name + "</li><li>作者:" + data.author + "</li><li>" + data.desc + "</li></ul>");
+					}
+				}
+			});
+		});
+	</script>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	用户名:<input type="text" id="username"><span id="info"></span><br>
+
+	<input type="button" value="检测用户名" id="btn">
+</body>
+<script type="text/javascript">
+	window.onload = function(){
+		var txt = document.getElementById("username");
+		var btn = document.getElementById("btn");
+		var info = document.getElementById("info");
+		btn.onclick = function(){
+			//1.创建核心对象XMLHttpRequest
+			var x = new XMLHttpRequest();
+			//2.准备发送
+			var url = '02 ajax.php?username='+txt.value;
+			x.open('get',url,true);
+			//3.发送ajax请求
+			x.send(null);
+
+			//4.监测服务器端是否已经回应请求
+			x.onreadystatechange = function(){
+				//readyState为4的时候代表服务器已经对之前发送的ajax请求做出了回应
+				if(x.readyState == 4){
+					//当status为200的时候代表返回了正确形式的数据
+					if(x.status == 200){
+						//通过responseText属性得到服务器端返回的数据
+						if(x.responseText=="1")
+						{
+							info.innerHTML = '可以注册';
+						}else if(x.responseText == '2'){
+							info.innerHTML = '不能注册';
+						}
+					}
+				}
+			}
+		}
+	}
+</script>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="http://gosspublic.alicdn.com/aliyun-oss-sdk-4.4.4.min.js"></script>
+</head>
+<body>
+	<input type="file" id="file" />
+	<input type="button" id="download" value="Download" />
+
+	<script type="text/javascript">
+		//在前端（浏览器）中向搭建的STS服务发起请求，获取STS临时授权信息
+		OSS.urllib.request("http://your_sts_server/",
+		                   {method: 'GET'},
+		                   function (err, response) {
+		 if (err) {
+		   return alert(err);
+		 }
+		 try {
+		   result = JSON.parse(response);
+		 } catch (e) {
+		   errmsg = 'parse sts response info error: ' + e.message;
+		   return alert(errmsg);
+		 }
+		 // console.log(result)
+		})
+
+		//查看文件列表
+		OSS.urllib.request("http://your_sts_server/",
+          {method: 'GET'},
+          function (err, response) {
+		      if (err) {
+		        return alert(err);
+		      }
+		      try {
+		        result = JSON.parse(response);
+		      } catch (e) {
+		        return alert('parse sts response info error: ' + e.message);
+		      }
+		      var client = new OSS.Wrapper({
+		        accessKeyId: result.AccessKeyId,
+		        accessKeySecret: result.AccessKeySecret,
+		        stsToken: result.SecurityToken,
+		        endpoint: '<oss endpoint>',
+		        bucket: '<Your bucket name>'
+		      });
+		      client.list({
+		        'max-keys': 10
+		      }).then(function (result) {
+		        console.log(result);
+		      }).catch(function (err) {
+		        console.log(err);
+		      });
+		});
+
+
+		//上传文件
+		document.getElementById('file').addEventListener('change', function (e) {
+		     var file = e.target.files[0];
+		     var storeAs = 'upload-file';
+		     console.log(file.name + ' => ' + storeAs);
+		     OSS.urllib.request("http://your_sts_server/",
+		                     {method: 'GET'},
+		                     function (err, response) {
+		         if (err) {
+		           return alert(err);
+		         }
+		         try {
+		           result = JSON.parse(response);
+		         } catch (e) {
+		           return alert('parse sts response info error: ' + e.message);
+		         }
+		         var client = new OSS.Wrapper({
+		           accessKeyId: result.AccessKeyId,
+		           accessKeySecret: result.AccessKeySecret,
+		           stsToken: result.SecurityToken,
+		           endpoint: '<oss endpoint>',
+		           bucket: '<Your bucket name>'
+		         });
+		         client.multipartUpload(storeAs, file).then(function (result) {
+		           console.log(result);
+		         }).catch(function (err) {
+		           console.log(err);
+		         });
+		       });
+		   });
+
+		//下载文件
+		document.getElementById('download').addEventListener('click', function (e) {
+		     var objectKey = 'test/download_file';
+		     var saveAs = 'download_file';
+		     console.log(objectKey + ' => ' + saveAs);
+		     OSS.urllib.request("http://your_sts_server/",
+		                     {method: 'GET'},
+		                     function (err, response) {
+		         if (err) {
+		           return alert(err);
+		         }
+		         try {
+		           result = JSON.parse(response);
+		         } catch (e) {
+		           return alert('parse sts response info error: ' + e.message);
+		         }
+		         var client = new OSS.Wrapper({
+		           accessKeyId: result.AccessKeyId,
+		           accessKeySecret: result.AccessKeySecret,
+		           stsToken: result.SecurityToken,
+		           endpoint: '<oss endpoint>',
+		           bucket: '<Your bucket name>'
+		         });
+		         var result = client.signatureUrl(objectKey, {
+		           expires: 3600,
+		           response: {
+		             'content-disposition': 'attachment; filename="' + saveAs + '"'
+		           }
+		         });
+		         console.log(result);
+		         window.location = result;
+		       });
+		   });
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body ng-app="myApp">
+	<div class="box" my-btn></div>
+	<div class="box" my-btn></div>
+	<button value="" id="btn">按钮</button>
+	<script id="tmp" type="text/ng-template">
+		<button id="btn">点击注册</button>
+	</script>
+	<script src="angular.js"></script>
+	<script>
+		var app = angular.module("myApp",[]);
+		app.directive("myBtn",[function(){
+			return {
+				templateUrl:'tmp',
+				link:function(scope,element,attributes){
+					element.on("click",function(){
+						console.log(scope);
+						console.log(element);
+						console.log(attributes);
+					});
+				}
+			}
+		}]);
+	</script>
+</body>
+</html>

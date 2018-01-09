@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box {
+				width: 400px;
+				height: 100px;
+				background-color: pink;
+				position: absolute;
+				left: 50%;
+				margin-left: -200px;
+			}
+			
+			form {
+				margin: 0 auto;
+				text-align: center;
+			}
+			
+			
+		</style>
+		<script src='packagingAjax.js'></script>
+		<script type='text/javascript' src ='template.js'></script>
+		<script id="book" type="text/html">
+			<ul>
+				<li>书名:{{value.name}}</li>
+				<li>作者:{{value.author}}</li>
+				<li>介绍:{{value.desc}}</li>
+			</ul>
+		</script>
+		<script>
+		window.onload=function(){
+			var search = document.querySelector("#search");
+			var btn = document.querySelector("#btn");
+			var info = document.querySelector("#info");
+			btn.onclick=function(){
+				var value = search.value;
+				// console.log(value);
+				if(value.trim()==''){
+					info.innerHTML='请输入要查询的书籍名称!';
+					return;
+				}
+
+
+
+				var x = new XMLHttpRequest();
+				x.open('get','test4.php?books='+encodeURI(value));
+				x.send(null);
+				x.onreadystatechange=function(){
+					if(x.readyState==4&&x.status==200){
+						var data = x.responseText;
+						console.log(data);
+						var h = template('book',data);
+						info.innerHTML=h;
+					}
+				}
+
+			// 	ajax({
+			// 		type:'get',
+			// 		data:{'books':value},
+			// 		dataType:'text',
+			// 		url:'test4.php',
+			// 		success:function(data){
+			// 			data =JSON.parse(data);
+			// 			var h = template('book',data);
+			// 			info.innerHTML=h;
+			// 			console.log(data);
+
+			// 			// var tag ='<ul>';
+					
+			// 			// 	tag+='<li>书名:'+data.name+'</li>';
+			// 			// 	tag+='<li>作者:'+data.author+'</li>';
+			// 			// 	tag+='<li>介绍:'+data.desc+'</li>';
+					
+			// 			// tag +='</ul>';
+			// 			// console.log(tag);
+			// 			// info.innerHTML=tag;
+
+			// 		}
+			// 	});
+			// }
+		}
+	}
+	</script>
+	</head>
+
+	<body>
+		<div id="box">
+			<form action="">
+				<input type="text" name="books" id="search" />
+				<input type="button" value="查询" id="btn" />
+				<div id="info"></div>
+			</form>
+		</div>
+
+	</body>
+	<!-- <script src="test4.js"></script> -->
+	
+</html>

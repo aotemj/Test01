@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>
+            Document
+        </title>
+        <meta name="Keywords" content=""/>
+        <meta name="Description" content=""/>
+        <style type="text/css">
+            .ng-cloak{display:none;}
+        </style>
+    </head>
+    <body>
+        <div ng-app='app' ng-controller='ctrl' ng-cloak class="ng-cloak">
+            {{ name }}
+            <br/>
+            <p ng-bind="name"></p>
+        </div>
+    </body>
+</html>
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript">
+    var m = angular.module('app', []);
+    m.controller('ctrl', ['$scope', function($scope){
+        $scope.name = '赵一鸣';
+    }]);
+</script>

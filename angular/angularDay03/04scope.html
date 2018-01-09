@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+		<style>
+				.red{
+					background-color: red;
+				}
+				.green{
+					background-color: green;
+				}
+		</style>
+	</head>
+	<body ng-app="myApp">
+		<div class="{{color='red'}}" ng-transclude my-btn>
+			带有自己内容通过自定义模板创建的模板1
+		</div>
+		<div class="{{color='green'}}" ng-transclude my-btn>
+			带有自己
+		</div>
+		<script id="tmp" type="text/ng-template">
+			<ul>
+				<li>带有restrict,transclude,scope等属性的模板</li>
+			</ul>
+		</script>
+		<script src="angular.js"></script>
+		<script>
+			var app = angular.module("myApp",[]);
+			app.directive("myBtn",[function(){
+				return {
+					templateUrl:'tmp',
+					restrict:'ACE',
+					replace:true,
+					transclude:true,
+					scope:{
+						color:'@',
+					}
+				}
+			}]);
+		</script>
+	</body>
+</html>

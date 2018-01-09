@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+	</head>
+	<body>
+		<script>
+					/*数组深度复制*/
+					// function deepClone(arr){
+					// 	var newArr=[];
+					// 	for(var i =0;i<arr.length;i++){
+					// 		newArr[newArr.length]=arr[i];
+					// 	}
+					// 	return newArr;
+					// }
+					// var arr=[1,2,3];
+					// var arr1=deepClone(arr);
+					// arr[2]="改过了";//改过arr的值不会影响arr1的值
+					// console.log("arr1="+arr1);
+					// console.log("arr="+arr);
+
+					/*对象深度复制*/
+					// function deepCloneObj(obj){
+					// 	var newObj={};
+					// 	for(var k in obj){
+					// 		if(typeof obj[k]==="object"){
+					// 			newObj[k]=deepCloneObj(obj[k]);
+					// 		}else{
+					// 			newObj[k]=obj[k];
+					// 		}
+					// 	}
+					// 	return newObj;
+					// }
+					// var obj={name:"xiaoming",age:18,o:{"name":"lisi"}};
+					// var  obj1= obj;
+					// var obj2=deepCloneObj(obj);
+					// obj.name="gaiguode";//改过obj的属性以后,不会影响拷贝出来的对象的值
+					// obj.o.name="gaiguo2";
+					// console.log(obj);
+					// console.log(obj2);
+				</script>
+	</body>
+</html>

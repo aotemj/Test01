@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl" >
+    选择
+    <div ng-repeat="item in list">
+        <input type="checkbox" name="tagName" value="item.id" ng-click="select(item.id,$event)"> {{item.shortName}}
+    </div>
+    结果：{{result}}
+</div>
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+        //创建checkbox用的
+        $scope.list=[{"id":1,"shortName":"张三"},{"id":2,"shortName":"李四"},{"id":3,"shortName":"王二"}];
+        //存储已选
+        $scope.result = [];
+        //触发事件
+        $scope.select = function(id,event){
+            console.log(event)//打印看看这是什么，有利于理解
+            console.log(action)
+
+            var action = event.target;
+            if(action.checked){//选中，就添加
+                if($scope.result.indexOf(id) == -1){//不存在就添加
+                    $scope.result.push(id);
+                }
+            }else{//去除就删除result里
+                var idx = $scope.result.indexOf(id);
+                if( idx != -1){//不存在就添加
+                    $scope.result.splice(idx,1);
+                }
+            }
+        };
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body ng-app="myApp">
+	<div ng-view></div>
+	<script src="angular.js"></script>
+	<script src="angular-route.js"></script>
+	<script>
+		var app=angular.module("myApp",["ngRoute"]);
+		app.config(["$routeProvider",function($routeProvider){
+			$routeProvider.when('/ali',{
+				template:'{{msg}}',
+				controller:'myController'
+			});
+		}]);
+		app.controller("myController",["$scope",function($scope){
+			$scope.msg="ali在三楼"
+		}]);
+	</script>
+</body>
+</html>

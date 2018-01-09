@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>01.vue初步体验</title>
+	<script src="vue221.js"></script>
+
+</head>
+<body>
+<div id="box">
+	<ul>
+		<li v-for="(item,index) in list" :key="index">{{item}}</li>
+		<li v-for="(item,key) in list1">{{item.name}}=={{key}}</li>
+	</ul>
+</div>
+<script>
+	new Vue({
+		el:"#box",
+		data:{
+			list:[1,2,3,4,4],
+			list1:[
+				{id:1,name:"张三"},
+				{id:2,name:"李四"},
+				{id:3,name:"王五"},
+				{id:4,name:"赵六"},
+			],
+		}
+	});
+</script>
+</body>
+</html>

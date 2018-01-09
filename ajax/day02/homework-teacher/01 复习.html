@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script type="text/javascript">
+	1.如何在php文件中编写php代码
+	<?php
+
+	?>
+		 
+	2.如何在php文件中定义一个变量
+	<?php
+		$num = 123;
+		$str = "jack";
+
+	?>	
+
+	3.如何定义一个数组	
+	<?php
+		$arr = array(1,2,3);
+		$arr2 = array("name"=>"jack","age"="18");
+	?>
+
+	4.如何定义一个二维数组	
+	<?php
+		$arr = array();
+		$arr['sgyy'] = array("bookName"=>"三国演义",'author','罗贯中');
+		$arr['xyj'] = array("bookName"=>"西游记",'author','吴承恩');
+		$arr['shz'] = array("bookName"=>"水浒传",'author','施耐庵');
+		$arr['hlm'] = array("bookName"=>"红楼梦",'author','曹雪芹');
+	?>
+
+	5.如何遍历一个数组
+	<?php
+		$arr2 = array("name"=>"jack","age"="18");
+		for( $i=0;$i<count($arr2) ;$i++ ){
+			echo $arr2[$i];
+		}
+
+		foreach( $arr2 as $k=>$v ){
+
+		}
+
+
+		$arr = array();
+		$arr['sgyy'] = array("bookName"=>"三国演义",'author','罗贯中');
+		$arr['xyj'] = array("bookName"=>"西游记",'author','吴承恩');
+		$arr['shz'] = array("bookName"=>"水浒传",'author','施耐庵');
+		$arr['hlm'] = array("bookName"=>"红楼梦",'author','曹雪芹');
+
+		foreach($arr as $k=>$v){
+			foreach( $v as $key=>$value ){
+
+
+			}
+		}
+
+
+		//如何将数组转换成json格式的字符串
+		$str = json_encode( $arr );
+	?>
+
+		
+</script>
+</html>

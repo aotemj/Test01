@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='jquery.js'></script>
+</head>
+<body>
+	<input type="button" id= 'btn' value='发送请求'>
+
+	<script>
+		function f(data){
+			console.log(data);
+		}
+		window.onload=function(){
+			
+			var btn = document.querySelector("#btn");
+			btn.onclick=function(){
+				$.ajax({
+					dataType:'jsonp',
+					jsonp:'callback',
+					jsonpCallback:'xxx',
+					url:'jsonp02.php',
+					success:function(data){
+						console.log(data);
+					}
+				});
+			}
+
+
+			// var btn = document.querySelector("#btn");
+			// btn.onclick=function(){
+			// 	// var script = document.createElement("script");
+			// 	// script.src='jsonp02.php?callback=f';
+			// 	// document.body.appendChild(script);
+			// 	$.ajax({
+			// 		type:'get',
+			// 		url:'jsonp02.php',
+			// 		//这个dataType属性设置为jsonp的时候,代表使用jsonp的方式进行跨域的请求
+			// 		dataType:'jsonp',
+			// 		//json属性设置传递到后台的参数名为callback具体设置的就是'jsonp02.php?callback=xxx'中的参数名callback
+			// 		jsonp:'callback',
+			// 		//jsonpCallback设置的是'jsonp02.php'中callback=xxx 中的参数值,一般不需要进行设置
+			// 		jsonpCallback:'xxx',
+			// 		success:function(data){
+			// 			console.log(data);
+			// 		}
+
+			// 	});
+			// }
+		}
+	</script>
+</body>
+</html>

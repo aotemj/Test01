@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="layout">
+		<form @submit.prevent action="http://www.baidu.com">
+			<input type="submit" value="提交" v-on:click="submit">
+		</form>
+	</div>
+	<script src="vue1026.js"></script>
+	<!-- <script src="vue221.js"></script> -->
+	<script>
+		var vm =new Vue({
+			el:'.layout',
+			data:{
+
+			},
+methods:{
+	submit:function(){
+		console.log("提交提示");
+	}
+}
+		});
+	</script>
+</body>
+</html>

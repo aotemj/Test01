@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+		<script src="../animate.css"></script>
+	<script src="../vue1026.js"></script>
+
+</head>
+<body>
+	<div class="layout">
+		<input type="button" value="切换数据" v-on:click="toggle">
+		<div class="animated" v-show="isShow" transition="show">123</div>
+	</div>
+
+<script>
+	var vm = new Vue({
+		el:".layout",
+		data:{
+			isShow:false,
+			txt:"测试数据",
+		},
+		methods:{
+			toggle:function(){
+				this.isShow=!this.isShow;
+			}
+		},
+		transitions:{
+			'show':{
+				enterClass:"fadeInRight",
+				leaveClass:"fadeOutRight"
+			}
+		},
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+	</head>
+	<body>
+		<div class="layout">
+			<a v-bind="{href:'http://www.baidu.com/'+id}" v-text="'跳转'+id">
+
+			</a>
+			<input type="button" value="点击换链接" v-on:click="change"/>
+		</div>
+		<script src="vue1026.js"></script>
+		<script>
+			var vm = new Vue({
+				el:'.layout',
+				data:{
+					id:1,
+				},
+				methods:{
+					change:function(){
+						this.id++;
+					},
+				},
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="angular.js"></script>
+</head>
+<body>
+	<div ng-app="myApp" ng-controller="myController">
+		<input type="text" ng-model="num1">
+		<input type="text" ng-model="num2">
+		<input type="button" value ="=" ng-click="add()">
+		<input type="text" ng-model="result">
+	</div>
+	<script>
+		var myApp =angular.module('myApp',[]);
+		myApp.controller('myController',function($scope){
+				$scope.num1 = 0;
+				$scope.num2 = 0;
+				$scope.result = 0;
+				$scope.add=function(){
+					$scope.result=($scope.num1-0)+($scope.num2-0);
+				};
+		});
+	</script>
+</body>
+</html>

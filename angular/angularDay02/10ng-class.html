@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+			.red{
+				background-color: red;
+			}
+			.green{
+				background-color: green;
+			}
+			.blue{
+				background-color: blue;
+			}
+	</style>
+</head>
+<body>
+	<div class="box" ng-app="myApp" ng-controller="myController">
+			<ul>
+				<li ng-class="{red:item.age<10,green:item.age>=10&&item.age<20,blue:item.age>20}" ng-repeat="item in arr">{{item.name}}{{item.age}}</li>
+			</ul>
+	</div>
+	<script src="angular.js"></script>
+	<script>
+		var app = angular.module("myApp",[]);
+		app.controller("myController",["$scope",function($scope){
+			$scope.arr=[
+				{"name":"xiaoming", "age":18},
+				{"name":"xiaoming", "age":28},
+				{"name":"xiaoming", "age":38},
+				{"name":"xiaoming", "age":8},
+				{"name":"xiaoming", "age":48},
+			];
+		}]);
+	</script>
+</body>
+</html>

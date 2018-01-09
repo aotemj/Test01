@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src='packagingAjax.js'></script>
+	</head>
+
+	<body>
+		<form>
+			<input type="button" value="转换数据" name='button' id="btn" />
+		</form>
+		<script>
+			var btn = document.querySelector("#btn");
+			btn.onclick = function() {
+				// //1.创建XMLHttpRequest()实例对象:
+				// var x = new XMLHttpRequest();
+				// //2.准备发送:
+
+				// x.open('get', 'test1.php');
+				// //3.发送:
+				// x.send(null);
+				// //4.服务器返回数据:
+				// x.onreadystatechange = function() {
+				// 	if(x.readyState == 4 && x.status == 200) {
+				// 		console.log(x.responseText);
+				// 	}
+				// }
+				
+				ajax({
+					data:'',
+					type:'get',
+					url:'test1.php',
+					dataType:'json',
+					success:function(data){
+						console.log(data);
+					}
+				}); 
+				
+			}
+		</script>
+	</body>
+
+</html>

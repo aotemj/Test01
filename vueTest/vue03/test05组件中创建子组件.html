@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="layout">
+		<template id="parent">
+			<div>父组件</div>
+			<child></child>
+		</template>
+		<template id="child">
+			<div>子组件</div>
+		</template>
+	</div>
+	<script src="../vue221.js"></script>
+	<script>
+		Vue.component("parent",{
+			tempalte:"#parent",
+			components:{
+				"child":{
+					template:"#child"
+				}
+			},
+		});
+
+		var vm  = new Vue({
+			el:".layout",
+			data:{},
+			methods:{},
+		})
+	</script>
+</body>
+</html>

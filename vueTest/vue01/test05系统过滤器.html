@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="layout">
+	<ul>
+		{{arr|json}}
+	</ul>
+	</div>
+	<script src="vue1026.js"></script>
+	<script>
+		var vm = new Vue({
+			el:".layout",
+			data:{
+				arr:[
+				{name:"zs",age:12},
+				{name:"ls",age:13},
+				{name:"ww",age:15},
+				],
+			},
+			method:{},
+		});
+	</script>
+</body>
+</html>

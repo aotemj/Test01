@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body ng-app="myApp">
+	<!-- <div class="my-btn" ></div> --> <!--通过类名添加的模板-->
+		<!-- <my-btn></my-btn> --> <!--通过标签名添加的模板-->
+		<div class="box" my-btn></div> <!--通过自定义属性添加的模板-->
+	<script id="tmp" type="text/ng-template">
+		<ul>
+			<li>这是通过templateUrl添加的模板</li>
+		</ul>
+	</script>
+	<script src="angular.js"></script>
+	<script>
+		var app =angular.module("myApp",[]);
+		app.directive("myBtn",[function(){
+				return {
+					templateUrl:'tmp',
+					restrict:'ACE',
+				};
+		}]);
+	</script>
+</body>
+</html>

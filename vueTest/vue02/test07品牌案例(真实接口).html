@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+		<style>
+		.box{
+			margin:0 auto;
+			width:800px;
+			/*background-color: pink;*/
+			text-align: center;
+		}
+			table{
+				width:800px;
+				border-collapse:collapse;
+				margin:20px auto;
+			}
+		th,td{
+			text-align: center;
+			background-color: skyblue;
+			border:1px solid #000;
+		}
+		[v-cloak]{
+			display:none;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="layout" v-cloak>
+			<div class="box">
+				<form>
+					<input type="text" v-model="newItem"/>
+					<input type="text" placeholder="根据品牌名筛选" v-model="sName"/>
+					<input type="button"  value="添加数据" v-on:click="addList"/>
+				</form>
+			</div>
+			<table>
+				<tr>
+					<th>
+						编号
+					</th>
+					<th>
+						品牌
+					</th>
+					<th>
+						添加时间
+					</th>
+					<th>
+						操作
+					</th>
+				</tr>
+				<tr v-if="{isShow:!!arr.length}">
+				<td colspan="4">当前列表无数据</td>
+				</tr>
+				<tr v-for="(index,item) in arr |filterBy sName in 'name'">
+					<td>
+						{{ index+1 }}
+					</td>
+					<td>
+						{{ item.name }}
+					</td>
+					<td>
+						{{ item.ctime }}
+					</td>
+					<td>
+						<a href="#" v-on:click="removeData(index)">
+							删除
+						</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<script src="../vue1026.js"></script>
+		<script src="../vue-resource121.js"></script>
+		<script>
+					var vm = new Vue({
+						el:".layout",
+						created:function(){
+							this.getList();
+						},
+						data:{
+							isShow:false,
+							sName:'',
+							newItem:'',
+							arr:[],
+						},
+						methods:{
+							/*显示数据*/
+							getList:function(){
+								var url="http://vue.studyit.io/api/getprodlist";
+								this.$http.get(url).then(function(response){
+									if(response.body.status!=0){
+										alert(response.body.message);
+										return ;
+									}
+									this.arr=response.body.message;
+								});
+							},
+							/*添加数据*/
+							addList:function(){
+								var url="http://vue.studyit.io/api/addproduct";
+								this.$http.post(url,{"name":this.newItem},{emulateJSON:true}).then(function(response){
+									if(response.body.status!=0){
+										alert(response.body.message);
+										return;
+									};
+									this.newItem="";
+									this.getList();
+								});
+							},
+							/*删除数据*/
+							removeData:function(id){
+								var url="http://vue.studyit.io/api/delproduct/"+id;
+								this.$http.get(url).then(function(response){
+									if(response.body.status!=0){
+										alert(response.body.message);
+										return;
+									}
+									if(!confirm("确定删除数据?")){
+										return ;
+									}
+									this.getList();
+								});
+							}
+						},
+					});
+				</script>
+	</body>
+</html>

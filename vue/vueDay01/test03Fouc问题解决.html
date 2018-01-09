@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+		<style>
+			[v-cloak]{
+				display:none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="layout">
+			<span v-text="txt1"></span>
+			<span v-html="txt2"></span>
+			<span v-cloak>{{txt3}}</span>
+		</div>
+		<script src="vue1026.js"></script>
+		<script>
+			var vm = new Vue({
+				el:'.layout',
+				data:{
+					txt1:'解决方式1',
+					txt2:"解决方式2",
+					txt3:'解决方式3',
+				},
+				methods:{},
+			});
+		</script>
+	</body>
+</html>

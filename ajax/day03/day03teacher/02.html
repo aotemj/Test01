@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	用户名：<span id="username"></span><br>
+	年龄：<span id="age"></span><br>
+	性别：<span id="gender"></span><br>
+	余额：<span id="money"></span><br>
+	
+</body>
+<script type="text/javascript">
+	window.onload = function(){
+		var x = new XMLHttpRequest();
+		x.open("get",'02.php');
+		x.send(null);
+
+		console.log("1111111111");
+
+		x.onreadystatechange = function(){
+			if(x.readyState == 4 && x.status == 200){
+				//将服务器返回的json格式字符串转换成js对象
+				var obj = JSON.parse(x.responseText);
+
+				document.getElementById("username").innerHTML = obj.name;
+				document.getElementById("age").innerHTML = obj.age;
+				document.getElementById("gender").innerHTML = obj.gender;
+				document.getElementById("money").innerHTML = obj.money;
+
+				console.log(2222222222);
+			}
+		}
+
+		console.log(33333);
+	}
+</script>
+</html>

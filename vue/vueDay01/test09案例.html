@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+		<style>
+			table{
+				margin:0 auto;
+				width:800px;
+				text-align: center;
+				border-collapse:collapse;
+			}
+			th{
+				background-color: skyblue;
+				border:1px solid #000;
+				color:#fff;
+			}
+			td{
+				border:1px solid #000;
+			}
+			.add{
+				width:800px;
+				margin:20px auto;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="layout">
+			<div class="add">
+				<input type="text" v-model="newItem" v-on:keyup.13="add"/>
+				<input type="text" v-model="sName" placeholder="请输入要查找的品牌"/>
+				<input type="button" value="添加品牌" v-on:click="add"/>
+			</div>
+			<table>
+				<tr>
+					<th>
+						编号
+					</th>
+					<th>
+						品牌
+					</th>
+					<th>
+						添加时间
+					</th>
+					<th>
+						操作
+					</th>
+				</tr>
+				<tr v-if="arr.length==0">
+					<td colspan='4'>
+						当前列表无数据
+					</td>
+				</tr>
+				<tr v-for="(index,item) in arr |filterBy sName in 'brand'">
+					<td>
+						{{ index+1 }}
+					</td>
+					<td>
+						{{ item.brand }}
+					</td>
+					<td>
+						{{ item.time }}
+					</td>
+					<td>
+						<a href="#" @click="delData(index)">
+							删除
+						</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<script src="vue1026.js"></script>
+		<script>
+		var vm = new Vue({
+			el:".layout",
+			data:{
+				sName:'',
+				newItem:'',
+				arr:[
+				],
+			},
+			methods:{
+				/*添加数据*/
+				add:function(){
+					var newData=this.newItem;
+					if(newData=='') return;
+					var res;
+					this.arr.forEach(function(v,i){
+						if(v.brand==newData)res=-1;
+
+					});
+					if(res==-1){
+						this.newItem='';
+						alert("您添加的品牌已存在");
+						return;
+					};
+					var obj = {
+						brand:this.newItem,
+						time:new Date(),
+					};
+					this.arr.push(obj);
+					this.newItem='';
+				},
+				/*删除数据*/
+				delData:function(index){
+					if(!confirm("真的要删除这一项吗?")) return;
+					this.arr.splice(index,1);
+				}
+			},
+		});
+	</script>
+	</body>
+</html>

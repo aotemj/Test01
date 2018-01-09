@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="layout">
+		<input type="text" v-model="firstName">
+		<input type="text" v-model="lastName">
+		{{fullName}}
+	</div>
+	<script src="../vue221.js"></script>
+	<script>
+		var vm = new Vue({
+			el:".layout",
+			data:{
+				firstName:"zs",
+				lastName:"ls",
+				fullName:"zsls"
+			},
+			methods:{},
+			watch:{
+				"firstName":function(now,old){
+					this.fullName=this.firstName+this.lastName;
+				},
+				"lastName":function(now,old){
+					this.fullName=this.firstName+this.lastName;
+				},
+			},
+		});
+	</script>
+</body>
+</html>

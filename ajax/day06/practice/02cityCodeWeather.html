@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+            <title>
+                Document
+            </title>
+            <style type="text/css">
+                #container{
+			        width: 500px;
+			        min-height: 300px;
+			        margin: auto;
+			        background-color: lightgreen;
+			        text-align: center;
+			        padding: 10px;
+   				 }
+    			li{
+    				list-style: none;
+    			}
+            </style>
+            <script src="jquery.js">
+            </script>
+            <script src="template.js">
+            </script>
+            <script id="weather" type="text/html">
+	            	<ul>
+	            		<li>时间:{{retData.date}}</li>
+	            		<li>天气:{{retData.weather}}</li>
+	            		<li>温度:{{retData.temp}}</li>
+	            		<li>风向:{{retData.WD}}</li>
+	            		<li>风速:{{retData.WS}}</li>
+	            	</ul>
+            </script>
+        </meta>
+    </head>
+    <body>
+        <div id="container">
+            城市名称：
+            <input id="city" type="text">
+                <input id="query" type="button" value="查询">
+                    <div id="info">
+                    </div>
+                </input>
+            </input>
+        </div>
+        <script>
+            $(function(){
+    		$("#query").click(function(){
+    			var cityName = $("#city").val();
+    			$.ajax({
+    				type:'get',
+    				data:{cityName:cityName},
+    				dataType:'json',
+    				url:'citycode.php',
+    				success:function(data){
+    					var cityCode= data.cityCode;
+    					$.ajax({
+    						data:{cityCode:cityCode},
+    						type:'get',
+    						dataType:'json',
+    						url:'cityweather.php',
+    						success:function(data){
+    							console.log(data);
+    							var html = template('weather',data);
+    							$("#info").html(html);
+    						}
+    					});
+    				}
+    			});
+    		});
+    	});
+        </script>
+    </body>
+</html>

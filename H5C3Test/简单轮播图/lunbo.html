@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		ul,li{
+			list-style:none;
+			padding:0;
+			margin:0;
+		}
+		div{
+			padding:0;
+			margin:0;
+		}
+		.container{
+			margin:200px auto;
+			overflow: hidden;
+			width:574px;
+			border:1px solid pink;
+			height:400px;
+			position: relative;
+		}
+		.imgBox{
+			position: relative;
+			left:-574px;
+		}
+		.img{
+			float: left;
+			width:574px;
+		}
+		img{
+			width:100%;
+		}
+		.leftBtn,.rightBtn{
+			width:50px;
+			height:50px;
+			position: absolute;
+			background-color:pink;
+			top:50%;
+			transform:translate(0,-50%);
+			font-size: 32px;
+			line-height: 50px;
+			text-align: center;
+			border:none;
+			outline:none;
+			cursor:pointer;
+		}
+		.leftBtn{
+			left:0;
+		}
+		.rightBtn {
+			right:0;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<ul class="imgBox">
+			<li class="img"><img dragable=false src="./imgs/Carousel1.jpg" alt=""></li>
+			<li class="img"><img dragable=false src="./imgs/Carousel2.jpg" alt=""></li>
+			<li class="img"><img dragable=false src="./imgs/Carousel3.jpg" alt=""></li>
+			<li class="img"><img dragable=false src="./imgs/Carousel4.jpg" alt=""></li>
+		</ul>
+		<!-- 左右按钮 -->
+		<input tyep="button" class="leftBtn" value="<">
+		<input tyep="button" class="rightBtn" value = ">">
+	</div>
+
+	<script src="./js/jquery.min.js"></script>
+	<script>
+		$(function(){
+			var index = 1;
+			var timer = null;
+			// 1 动态获取轮播图片盒子宽度：
+			// 1.1获取当前轮播容器的宽度：
+			var htmlWidth = $('.container').width();
+			console.log(htmlWidth);
+			// 1.2.1 克隆 第一张图片到图片盒子最后：
+			var firstImg = $('.imgBox .img').eq(0).clone(true);
+			console.log(firstImg);
+			// 1.2.2 克隆 最后一张图片到图片盒子最前：
+			var lastImg = $('.imgBox .img').eq($('.imgBox .img').length-1).clone(true);
+
+			$('.imgBox').append(firstImg);
+			lastImg.insertBefore($('.imgBox .img').eq(0));
+			// 1.3 获取当前图片盒子中的图片个数：
+			var imgLength = $('.imgBox .img').length;
+			console.log(imgLength);
+
+			// 1.3 设置当前 图片盒子宽度为 图片容器宽度的 imgLength倍
+			$('.imgBox').width(imgLength*htmlWidth);
+
+			//$(selector).animate(styles,speed,easing,callback)
+			// 1.4 设置点击轮播：
+			$('.rightBtn').on('click',function(){
+					$('.rightBtn').attr('disabled',true);
+					clearInterval(timer);
+					index++;
+					play();
+					setTimeout(function(){
+						$('.rightBtn').attr('disabled',false);
+					},1000);
+			});
+			$('.leftBtn').on('click',function(){
+				$('.leftBtn').attr('disabled',true);
+				clearInterval(timer);
+				index--;
+				play();
+				setTimeout(function(){
+					$('.leftBtn').attr('disabled',false);
+				},1000);
+			});
+
+			autoPlay();
+			//自动播放：
+			function autoPlay(){
+				timer = setInterval(function(){
+					index++;
+					play();
+				},2000);
+			}
+
+			//播放事件封装：
+			function play(){
+					// console.log(index);
+					if(index == imgLength-1){
+						index = 0;
+						$('.imgBox').css({
+							'left':0
+						});
+						index++;
+					}
+					if(index == -1 ){
+						index = imgLength-2;
+						$('.imgBox').css({
+							'left':-index *htmlWidth+'px'
+						});
+						index--;
+					}
+					$('.imgBox').animate(
+						{
+							'left':-index*htmlWidth+'px'
+						},
+						500,
+						function(){
+							clearInterval(timer);
+							autoPlay();
+						});
+			}
+		});
+	</script>
+</body>
+</html>

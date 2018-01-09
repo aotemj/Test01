@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="box" ng-app="myApp" ng-controller="myController">
+			<span ng-bind="name"></span>
+			{{name}}
+	</div>
+<script src="angular.js"></script>
+<script>
+	var app = angular.module("myApp",[]);
+	app.controller("myController",["$scope",function($scope){
+		$scope.name="xiaoming";
+	}]);
+</script>
+</body>
+</html>

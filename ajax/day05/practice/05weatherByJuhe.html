@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="jquery.js"></script>
+    <style>
+        #container {
+            width: 400px;
+            height: 300px;
+            background-color: pink;
+            margin: 50px auto;
+            text-align: center;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <select name="city" id="city">
+        <option value="北京">北京</option>
+        <option value="上海">上海</option>
+        <option value="广州">广州</option>
+        <option value="青岛">青岛</option>
+    </select>
+    <input type="button" value="查询" id="btn"/>
+</div>
+
+</body>
+<script>
+    $(function () {
+        $('#btn').click(function () {
+            var cityName = $('#city').val();
+            console.log(cityName);
+            $.ajax({
+                type: 'get',
+                url: 'http://v.juhe.cn/weather/index',
+                data: {'cityname':cityName,'key':'5e98158cea3da8723a68f6bed0b6bf00'},
+                dataType: 'jsonp',
+                success: function(data){
+                    console.log(data);
+                }
+            });
+        });
+    });
+</script>
+</html>

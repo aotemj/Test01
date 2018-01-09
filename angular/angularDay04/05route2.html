@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body ng-app="myApp">
+     <div ng-view></div>
+    <script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+    <script>
+        var app =angular.module("myApp",["ngRoute"]);
+        app.config(["$routeProvider",function($routeProvider){
+            $routeProvider.when('/ali',{
+                template:'ali在3楼',
+            }).when("/baidu",{
+                template:'baidu在4楼',
+            }).when("/404",{
+                template:'您要访问的页面不存在',
+            }).otherwise({
+                redirectTo:'/404'
+            });
+        }]);
+    </script>
+</body>
+</html>

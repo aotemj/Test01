@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="layout">
+		{{time|dateFormat}}
+	</div>
+	<script src="../vue1026.js"></script>
+	<script>
+		var vm = new Vue({
+			el:".layout",
+			data:{
+				time:new Date(),
+			},
+			methods:{},
+			filters:{
+				dateFormat:function(input){
+					var res="";
+					var year = input.getFullYear();
+					var month = input.getMonth()+1;
+					var date = input.getDate();
+					res+=year+'-'+month+"-"+date;
+					return res;
+				}
+			},
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+		<style>
+			.show-enter-active,.show-leave-active{
+				transition:all 1s;
+				padding:10px;
+			}
+			.show-enter,.show-leave-active{
+				padding:100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="layout">
+			<input type="button" value="显示隐藏" v-on:click="toggle">
+			<transition name="show">
+				<div class="box" v-if="isShow">123</div>
+			</transition>
+		</div>
+		<script src="../vue221.js"></script>
+		<script>
+				var vm = new Vue({
+					el:".layout",
+					data:{
+						isShow:false,
+					},
+					methods:{toggle:function(){
+						this.isShow=!this.isShow;
+					}},
+
+				});
+			</script>
+	</body>
+</html>

@@ -1,0 +1,101 @@
+1.json数据格式：和js中的对象的格式很像，
+	json与js中的对象不一样的地方
+	A.js中的对象要有变量来保存，json格式的数据不需要变量
+	B.js中的对象需要写分号做结束，json格式的数据不需要写分号
+	C.js中的对象的键可以写引号也可以不写，  json格式的数据的键必须写双引号引起来。
+
+
+注意:当我们得到json格式的数据之后，为了能方便的操作这些数据，我们需要将json格式的数据转换成对象
+A.如果是低版本的浏览器，推荐：   var obj = eval("("+json+")");
+B.如果是正常高版本的浏览器，推荐：  var obj = JSON.parse(json);
+	补充：将对象转换为JSON格式的字符串 ：  var str = JSON.stringify( obj );
+
+2.开发php后台接口:
+A.直接返回一个json格式的字符串
+<?php
+	echo '{"name":"jack","age":"20"}';
+?>
+B.返回一个拼接的json格式字符串
+<?php
+	$name = 'jack';
+	$age = 20;
+
+	echo '{"name":"' .$name. '","age":"'. $age .'"}';
+	
+?>
+C.通过json_encode将数组转换成json格式字符串
+<?php
+	$arr = array("name"=>"jack","age"=>"20");
+	//将$arr数组转换成json格式的字符串
+	echo json_encode($arr);
+
+?>
+
+3.javascript的代码是如何进行执行的呢？
+采用的是主线程，事件队列这两种执行的机制。
+
+主线程：大部分js代码都是主线程方式进行执行（除了延时处理，事件处理，ajax回调），主线程这种执行的方式就是从上往下进行一句一句的执行代码。
+
+事件队列：延时处理，事件处理，ajax回调采用事件队列的方式进行执行，当主线程执行代码的时候遇到了这三种情况，就会将这三种情况对应的函数加入到事件队列中，当主线程所有的代码执行完毕之后，开始循环事件队列中的函数，一直到函数对应的条件达成，当条件达成的时候就执行函数内部的代码。
+	事件队列中的函数可能需要达成的条件：
+	A.当延时处理的函数需要执行，那么必须达成的条件就是时间足够
+	B.当事件处理的函数需要执行，那么必须达成的条件就是绑定的事件已经被触发了。
+	C.当ajax回调的函数需要执行，那么必须达成的条件就是服务器已经返回数据。
+
+<script>
+	console.log(111111);
+		setTimeout(function(){
+			console.log(2222222)
+		},2000);
+	console.log(333333);
+	var btn = document.getElementById("btn");
+		btn.onclick = function(){
+			console.log(4444444);
+		}
+	console.log(55555555);
+
+	var x = new XMLHttpRequest();
+	x.open("get","01.php");
+	x.send(null);
+		x.onreadystatechange = function(){
+			if(x.status == 200 && x.readyState == 4){
+				console.log(6666666);
+			}
+		}
+
+	console.log(77777777);
+</script>
+
+4.jquery中的ajax方法发送ajax请求：
+$.ajax({
+	//参数对象的type属性用来设置请求的方式，可以设置的值有get，post
+	type:"get",
+
+	//参数对象的url属性用来设置请求的地址，ajax方法中url属性是必须有的，不能省略
+	url:"01.php",
+
+	//参数对象的data属性用来设置需要传递的参数，data的形式就是一个对象，对象中的键就是参数名
+	//对象中的值就是参数值
+	data:{"username":"jack","password":"123456"},
+
+	//参数对象的dataType属性用来设置返回数据的格式，
+	//可以设置的值有xml,text,json,html,script,jsonp
+	dataType:"json",
+
+	//参数对象的success方法用来设置回调函数(即服务器返回数据时要执行的操作)，这个success方法的data参数就是服务器返回的数据
+	success:function(data){
+		//success方法中的data的类型是由dataType来决定的
+		//比如dataType是json，那么data就是一个对象
+		console.log(data);
+	},
+	
+	//参数对象的error方法用来设置当服务器返回错误的情况的时候要执行的回调函数，当服务器返回的状态是错误的情况的时候，会调用error方法。
+	error:function(data){
+		//data是一个对象，该对象中包含了错误相关信息。
+	}
+})
+
+
+
+
+

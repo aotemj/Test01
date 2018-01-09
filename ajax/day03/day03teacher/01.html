@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script type="text/javascript">
+	window.onload = function(){
+		//A.创建XMLHttpRequest对象
+		var x = new XMLHttpRequest();
+		//B.准备发送
+		var param = "username=杰克&password=123456"
+		param = encodeURI(param);
+
+		x.open("get","01 php.php?"+param,true);
+
+		//C.发送请求
+		x.send(null);
+		//D.监测服务器返回的数据
+		x.onreadystatechange = function(){
+			if( x.readyState == 4 && x.status == 200 ){
+			//通过XMLHttpRequest对象的responseText属性就可以拿到服务器返回的文本数据
+				//console.log(x.resonpseText);
+				if(x.resonpseText == '1'){
+
+
+				}else if(x.resonpseText == "2"){
+					
+				}
+			}
+		}
+	}
+</script>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src= 'jquery.js'></script>
+</head>
+<body>
+		<input type="text"  id="search">
+		<div class="res" id ='res'></div>
+	<script>
+	$(function(){
+		$("#search").keyup(function(){
+			// console.log($(this).val());
+			var res  = $(this).val();
+			$.ajax({
+				data:{"wd":res},
+				dataType:'jsonp',
+				jsonp:'cb',
+				url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+				success:function(data){
+					console.log(data);
+					var res = data.s;
+					var tag  ='<ul>';
+					$.each(res,function(i,v){
+						tag += '<li>'+v+'</li>';
+					});
+					tag +='</ul>';
+					$('#res').html(tag);
+				}
+			});
+		});
+
+	});
+	</script>
+</body>
+</html>
+<!-- https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=1&json=1&p=3&sid=1427_13551_21117_18560_24022_20927&req=2&csor=1&cb=jQuery1102016121017024401763_1508893139733&_=1508893139737 -->

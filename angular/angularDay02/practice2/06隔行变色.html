@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+		<style>
+			.red{
+				background-color: red;
+			}
+			.green{
+				background-color: green;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box" ng-app="myApp" ng-controller="myController">
+			<ul>
+				<li ng-repeat="item in arr track by $index" ng-class="{red:$even,green:$odd}">{{item}}</li>
+			</ul>
+		</div>
+		<script src="angular.js"></script>
+		<script>
+			var app =angular.module("myApp",[]);
+			app.controller("myController",["$scope",function($scope){
+				$scope.arr=[1,2,3,4,5,6,7,1];
+			}]);
+		</script>
+	</body>
+</html>

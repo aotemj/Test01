@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<form>
+			<label for="">用户名:<input id="username" name="username"><span id="info"></span></label><br>
+			<input type="button" value="检测" id="btn" />
+		</form>
+		<script>
+			window.onload = function() {
+				var txt = document.querySelector("#username");
+				var info = document.querySelector("#info");
+				var btn = document.querySelector("#btn");
+				btn.onclick = function() {
+					ajax({
+						type:'get',
+						data:{"username":txt.value.trim()},
+						url:'ajax01.php',
+						dataType:'json',
+						success:function(data){
+							console.log(data);
+							if(data == "1") {
+									info.innerHTML = "可以注册";
+								} else {
+									info.innerHTML = "不可以注册";
+						}
+					}
+				});
+
+
+				// 	//1创建XMLHttpRequest()实例对象:
+				// 	var x = new XMLHttpRequest();
+				// 	//2准备发送:
+				// 	x.open('get', "ajax01.php?username=" + txt.value);
+				// 	//3发送数据:
+				// 	x.send(null);
+				// 	//4服务器响应发送的数据:
+				// 	x.onreadystatechange = function() {
+				// 		if(x.readyState == 4) { //当服务器解析完数据:
+				// 			if(x.status == 200) {
+				// 				if(x.reponseText = "1") {
+				// 					info.innerHTML = "可以注册";
+				// 				} else {
+				// 					info.innerHTML = "不可以注册"
+				// 				}
+				// 			}
+				// 		}
+				// 	};
+				// }
+			}
+
+			function ajax(obj){
+				var	defaults ={
+					type:'get',
+					data:{},
+					dataType:'text',
+					url:'#',
+					async:true,
+					success:function(data){}
+				}
+
+				for(var k in obj){
+					defaults[k] = obj[k];
+				}
+
+				var x = new XMLHttpRequest();
+				var param = '';
+				for(var k in defaults.data){
+					param+=k+'='+defaults.data[k]+'&';
+				}
+				if(param){
+					param=param.substring(0,param.length-1);
+				}
+
+				if(defaults.type=='get'){
+					defaults.url+='?'+encodeURI(param);//转码数据,防止中文乱码
+				}
+
+				x.open(defaults.type,defaults.url);
+				
+				var data = null;
+				if(defaults.type=='post'){
+					data = param;
+			        x.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+
+				}
+				
+				x.send(data);
+				//如果为同步请求,不会调用回调函数,直接返回
+				if(!defaults.async){
+					if(defaults.dataType=='json'){
+						return JSON.parse(x.responseText);
+					}else{
+						return x.responseText;
+					}
+				}
+
+				x.onreadystatechange=function(){
+					if(x.readyState==4&&x.status==200){
+						var data = x.responseText;
+						if(defaults.dataType=='json'){
+							data = JSON.parse(data);
+						}
+						defaults.success(data);
+					}
+				}
+
+			}
+		}
+		</script>
+
+
+
+		<!--<script>
+		var username = document.querySelector("#username"); var info = document.querySelector("#info"); var btn = document.querySelector("#btn"); btn.onclick = function() { //1创建XMLHttpRequest 实例对象: var x = new XMLHttpRequest(); //2准备发送 x.open('get', "ajax.php?username=" + username.value, true); //3.发送ajax请求: x.send(null); //4检测服务器端是否已经回应请求: x.onreadystatechange = function() { //x.readyState为4的时候代表服务器已经对之前发送的ajax请求做出了回应 if(x.readyState == 4) { //当status==200的时候代表返回了正确形式的数据 if(x.status == 200) { if(x.responseText == "1") { info.innerHTML = "可以注册"; } else if(x.responseText == "2") { info.innerHTML = "不能注册"; } } } } }
+		</script>-->
+	</body>
+
+</html>

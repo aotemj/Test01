@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	用户名:<input type="text" id="username"><span id="info"></span><br>
+
+	<input type="button" value="检测用户名" id="btn">
+	<script>
+		window.onload=function(){
+			var btn = document.querySelector("#btn");
+			btn.onclick=function(){
+
+				var username = document.querySelector("#username").value;
+				if(username.trim()==''){
+					document.querySelector("#info").innerHTML='请输入用户名';
+					return;
+				}
+				var x = new XMLHttpRequest();
+				x.open('post','02ajax.php');
+				x.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				x.send('username='+username);
+				x.onreadystatechange=function(){
+					if(x.readyState==4&&x.status==200){
+						var info = document.querySelector("#info");
+
+						var data = x.responseText;
+						console.log(data);
+						if(data==1){
+							info.innerHTML='用户不存在,可以注册'
+						}else{
+							info.innerHTML='用户名存在,不能注册'
+						}
+					}
+				}
+			}
+		}
+	</script>
+</body>
+
+</html>

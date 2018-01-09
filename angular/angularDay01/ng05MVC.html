@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+		<script src="angular.js"></script>
+	</head>
+	<body>
+		<table ng-app="myApp" ng-controller="myController">
+			<tr>
+				<td>
+					用户注册:
+				</td>
+			</tr>
+			<tr>
+				<td>
+					用户名:
+					<input type="text" ng-model="userName"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					密码:
+					<input type="password" ng-model="userPwd"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					确认密码:
+					<input type="password" ng-model ="confirmPwd"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					同意注册协议:
+					<input type="checkbox" ng-model="isAgree"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="提交" ng-click="regediter()"/>
+					<span>
+						{{ nameHint }}
+					</span>
+				</td>
+			</tr>
+		</table>
+		<script>
+			var app = angular.module("myApp",[]);
+			app.controller("myController",function($scope){
+			  var arr =JSON.parse(localStorage.getItem("UserData"))||[];
+					$scope.regediter=function(){
+
+						 if($scope.userName.length<6){
+								$scope.nameHint="您输入的用户名太短!";
+								return;
+							}
+							if($scope.userPwd.length<6){
+								$scope.nameHint="您输入的密码太短!";
+								return;
+							}else if($scope.userPwd!==$scope.confirmPwd){
+								$scope.nameHint="确认密码和密码不一致!";
+								return;
+							}
+							if(!$scope.isAgree){
+								$scope.nameHint ="请阅读协议并同意";
+								return;
+							}
+							//存储数据:
+							var obj = {
+								"name":$scope.userName,
+								"pwd":$scope.userPwd
+							};
+						arr.push(obj);
+						localStorage.setItem("UserData",JSON.stringify(arr));
+
+					var arr1 =JSON.parse(localStorage.getItem("UserData"));
+					for(var i=0;i<arr1.length;i++){
+							if(arr1[i].name!==$scope.userName){
+									continue;
+							}else {
+								$scope.nameHint="注册成功";
+								break;
+							}
+					}
+				};
+			});
+		</script>
+	</body>
+</html>

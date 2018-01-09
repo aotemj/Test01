@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="layout">
+		<input type="button" value="获取post请求" v-on:click="postData">
+		{{obj|json}}
+	</div>
+	<script src="../vue1026.js"></script>
+	<script src="../vue-resource121.js"></script>
+	<script>
+		var vm = new Vue({
+			el:".layout",
+			data:{
+				obj:null,
+			},
+			methods:{
+				postData:function(){
+					var url="http://vue.studyit.io/api/addproduct";
+					this.$http.post(url,{name:"赵鑫磊"},{emulateJSON:true}).then(function(response){
+							console.log(response.body);
+							alert(response.body.message);
+					});
+				}
+			},
+		});
+	</script>
+</body>
+</html>

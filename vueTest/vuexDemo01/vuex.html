@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="app">
+		<input type="button" value="增加" v-on:click='add'>
+		<counter></counter>
+	</div>
+	<template id="counter">
+		<div>
+			{{count}}
+		</div>
+	</template>
+	<script src='./vue221.js'></script>
+	<script src='./vuex3.0.1.js'></script>
+	<script>
+
+		//创建store实例对象
+		var store = new Vuex.Store({
+			state:{
+				count:-2
+			}
+		});
+
+		//定义子组件
+		Vue.component('counter',{
+			template:'#counter',
+			computed:{
+				count(){
+					return this.$store.state.count;
+				}
+			}
+		});
+
+		// 实例化vue对象
+		var vm = new Vue({
+			el:'#app',
+			data:{},
+			store,
+			methods:{
+				add(){
+					store.state.count++;
+				}
+			},
+			components:{}
+		});
+	</script>
+</body>
+</html>

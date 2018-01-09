@@ -1,0 +1,83 @@
+<!DOCTYPE doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+            <title>
+                评论动态加载
+            </title>
+            <link href="style.css" rel="stylesheet" type="text/css">
+                <script src="jquery.js">
+                </script>
+                <script src="template.js" type="text/javascript">
+                </script>
+                <script id="message" type="text/html">
+                     {{each  as value}} 
+		                <li class="comment">
+		        	        <div class="left">
+		        	        	<img src="{{value.imgpath}}">
+		        	        </div>
+		        	        <div class="right">
+	            	            <div>{{value.nickname}}</div>
+	            	            <div>{{value.content}}</div>
+		        	        </div>
+		        	    </li>
+		        	    <hr>
+            	 {{/each}} 
+                </script>
+                <script>
+                    // # 评论查询接口
+					// ## 查询评论信息
+					// - 接口地址 http://localhost/comment/data.php
+					// - 请求方式 get
+					// - 请求参数
+					//     + last 最新页码（数据加载的次数），从0开始
+					//     + amount 每页数据条数（每次加载数据的条数）
+					//     
+			$(function(){
+				function renderData(param){
+					$.ajax({
+						type:'get',
+						data:param,
+						dataType:'json',
+						url:'data.php',
+						success:function(data){
+							console.log(data);
+							if(data==1){
+								$("#more").html("没有更多的内容可以加载了");
+							}
+							// var tag ='';
+							// for(var i in data){
+							// 	tag += '<li class="comment"><div class="left"><img src="'+data[i].imgpath+'"></div><div class="right"><div>'+data[i].nickname+'</div><div>'+data[i].content+'</div></div></li><hr>';
+							// }
+							// $("#contentList").append(tag);
+							var html = template('message',data);
+							$("#contentList").append(html);	
+						}
+					});
+				}
+				var page = 0;
+				renderData({last:page,amount:2});
+				$('#more').click(function(){
+					page++;
+					renderData({last:page,amount:2});
+				});
+				
+			})
+                </script>
+            </link>
+        </meta>
+    </head>
+    <body>
+        <div style="height:300px;">
+        </div>
+        <div id="container">
+            <ul id="contentList">
+            </ul>
+            <div id="more">
+                加载更多...
+            </div>
+            <input id="last" type="hidden" value="0">
+            </input>
+        </div>
+    </body>
+</html>

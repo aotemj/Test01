@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script type="text/javascript">
+	1.如何使用ajax发送get请求，请编写代码
+		//A.创建XMLHttpRequest对象
+		var x = new XMLHttpRequest();
+		//B.准备发送
+		var param = "username=杰克&password=123456"
+		param = encodeURI(param);
+
+		x.open("get","01.php?"+param,true);
+
+		//C.发送请求
+		x.send(null);
+		//D.监测服务器返回的数据
+		x.onreadystatechange = function(){
+			if( x.readyState == 4 && x.status == 200 ){
+			//通过XMLHttpRequest对象的responseText属性就可以拿到服务器返回的文本数据
+				console.log(x.resonpseText);
+			}
+		}
+	
+
+	2.如何使用ajax发送post请求，请编写代码
+		//A.创建XMLHttpRequest对象
+		var x = new XMLHttpRequest();
+		//B.准备发送
+		var param = "username=杰克&password=123456"
+		//param = encodeURI(param);
+
+		x.open("post","01.php");
+
+
+		x.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
+		//C.发送请求
+		x.send(param);
+		//D.监测服务器返回的数据
+		x.onreadystatechange = function(){
+			if( x.readyState == 4 && x.status == 200 ){
+			//通过XMLHttpRequest对象的responseText属性就可以拿到服务器返回的文本数据
+				console.log(x.resonpseText);
+			}
+		}
+
+
+	3.XMLHttpRequest对象的readyState属性有几个值？
+	XMLHttpRequest.readyState  = {0,1,2,3,4}
+
+	只有当XMLHttpRequest.readyState 为 4的时候，才能正常使用数据
+	
+
+	4.XMLHttpRequest对象的status属性常见的几个值是什么，代表什么意思？
+	XMLHttpRequest.status    =   {200,404,500}
+
+	只有当XMLHttpRequest.status 为200的时候，数据才是正常的数据
+	404代表访问的页面不存在
+	500代表是服务器错误
+	
+
+	5.XMLHttpRequest对象的responseText属性有什么用？
+	XMLHttpRequest.responseText 获取服务器返回的数据
+	XMLHttpRequest.responseXML
+
+	sendAjax("get",'01.php',"username=杰克&password=123456",function(data){
+		console.log(data);
+	});
+	sendAjax("post",'02.php',"username=杰克&password=123456",function(data){
+		document.getElementById("info").innerHTML = data;
+	});
+
+	function sendAjax(type,url,param,callback){
+		//A.创建XMLHttpRequest对象
+		var x = new XMLHttpRequest();
+		//B.准备发送
+		var param = "username=杰克&password=123456"
+		param = encodeURI(param);
+
+		x.open(type,url+"?"+param,true);
+
+		//C.发送请求
+		x.send(null);
+		//D.监测服务器返回的数据
+		x.onreadystatechange = function(){
+			if( x.readyState == 4 && x.status == 200 ){
+			//通过XMLHttpRequest对象的responseText属性就可以拿到服务器返回的文本数据
+				//console.log(x.resonpseText);
+				callback( x.resonpseText );
+			}
+		}
+
+	}
+
+</script>
+</html>

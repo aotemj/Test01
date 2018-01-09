@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>品牌数据案例</title>
+	<style>
+		#tb{
+			width: 800px;
+			/*为表格设置合并边框模型*/
+			border-collapse: collapse;
+			margin: 20px auto;
+		}
+		#tb th{
+			background-color: #0094ff;
+			color:white;
+			font-size: 16px;
+			padding: 5px;
+			text-align: center;
+			border: 1px solid black;
+		}
+		#tb td{
+			padding: 5px;
+			text-align: center;
+			border: 1px solid black;
+		}
+		.text{
+			width: 800px;
+			margin: 0 auto;
+			text-align: center;
+		}
+	</style>
+
+</head>
+<body>
+	<div id="app">
+		<div class="text">
+			<input type="text" v-model="id" placeholder="请输入编号">
+			<input type="text" v-model="pname" placeholder="请输入品牌名称">
+			<button @click="add()">添加数据</button>
+			<input type="text" v-model="sname" placeholder="请输入筛选条件">
+		</div>
+
+
+		<table id="tb">
+			<tr>
+				<th>编号</th>
+				<th>品牌名称</th>
+				<th>创建时间</th>
+				<th>操作</th>
+			</tr>
+			<!-- 实现如果没有数据有提供功能：v-if 和v-show 都可以，逻辑不变；colspan="4"跨4列显示 -->
+			<tr v-if="list.length==0">
+				<td colspan="4">当前列表无数据</td>
+			</tr>
+			<!-- <div v-for="user in users | filterBy 'Jack' in 'name'">
+			在上例中，过滤器只在用户对象的 name 属性中搜索 "Jack"。 这是1.0版本提供的方法，2.0中没有此方法-->
+			<tr v-for="item in list | filterBy sname in 'name'">
+				<td>{{item.id}}</td>
+				<td>{{item.name}}</td>
+				<td>{{item.ctime | datefmt('yyyy-mm-dd','HH:mm:ss')}}</td>
+				<td>
+					<a href="javascript:;" @click="del(item.id)">删除</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<script src="vue221.js"></script>
+	<script>
+	/*自定义全局过滤器2.0版本*/
+		Vue.filter('datefmt',function(input, formateString, formate){
+            console.log(formate);
+            var res = "";
+            var year = input.getFullYear();
+            var month = (input.getDate() + 1).toString().padStart(2, 0);
+            var day = input.getDate().toString().padStart(2, 0);
+            var hh = input.getHours().toString().padStart(2, 0)
+            var mm = input.getMinutes().toString().padStart(2, 0)
+            var ss = input.getSeconds().toString().padStart(2, 0)
+
+            if(formateString == "yyyy-mm-dd" && formate == "HH:mm:ss"){
+                res = year +'-' + month +'-'+ day +'  ' + hh +':' + mm +':'+ ss;
+            }else {
+                res = year +'-' + month +'-'+ day
+            }
+            return res;
+        })
+
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				list:[
+					{id:1,name:"宝马",ctime:new Date()}
+				],
+				id:"",
+				pname:"",
+				sname:""//自动获取到用户输入的筛选条件值
+			},
+			methods:{
+				add:function(){
+					// 1.0 包装成list要求的对象
+					var p={id:this.id,name:this.pname,ctime:new Date()};
+					// 2.0 将p追加到list数值中
+					this.list.push(p);
+					// 3.0 清空页面上的文本框中的数据
+					this.id="";
+					this.pname="";
+				},
+				del:function(id){
+					// 0.0 提醒用户是否要删除数据
+					if(!confirm("是否要删除数据？")){
+						return;
+					}
+					// 1.0 调用list.findIndex()方法根据传入的id获取到这个要删除数据的索引值
+					var index=this.list.findIndex(function(item){return item.id==id});
+					// 2.0 调用的 list.splice(删除的索引，删除的元素个数)
+					this.list.splice(index,1);
+				}
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="layout">
+		<input type="button" v-on:click="jsonpData" value="获取jsonp请求">
+		{{obj|json}}
+	</div>
+	<script src="../vue1026.js"></script>
+	<script src="../vue-resource121.js"></script>
+	<script>
+		var vm = new Vue({
+			el:".layout",
+			data:{
+				obj:null,
+			},
+			methods:{
+				jsonpData:function(){
+					var url="http://vue.studyit.io/api/jsonp";
+					this.$http.jsonp(url).then(function(response){
+						this.obj=response.body;
+					});
+				}
+			},
+		});
+	</script>
+</body>
+</html>

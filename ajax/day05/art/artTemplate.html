@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src='template.js'></script>
+	<script type = 'text/html' id='stu'>
+		{{each student as value}}
+		<tr>
+			<td>{{value.id}}</td>
+			<td>{{value.name}}</td>
+			<td>{{value.gender}}</td>
+			<td>{{value.age}}</td>
+		</tr>
+		{{/each}}
+	</script>
+	<script>
+		window.onload=function(){
+			var tbody = document.querySelector("#tbody");
+			var students ={
+				student:[{id:'01',name:'zs',gender:'nan',age:18},
+						{id:'02',name:'ls',gender:'nv',age:19},
+						{id:'03',name:'ww',gender:'nv',age:20},
+						{id:'04',name:'zl',gender:'nan',age:21}
+				]
+			}
+			var html =template('stu',students);
+			console.log(html);
+			tbody.innerHTML=html;
+		}
+	</script>
+</head>
+
+<body>
+	<table border=1 cellpadding=2>
+		<tr>
+			<td>学号</td>
+			<td>姓名</td>
+			<td>性别</td>
+			<td>年龄</td>
+		</tr>
+		<tbody id='tbody'>
+			
+		</tbody>
+	</table>
+</body>
+</html>

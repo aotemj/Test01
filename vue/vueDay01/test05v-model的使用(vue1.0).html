@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="layout">
+		<input type="text" v-model="txt1" number>
+		<input type="text" v-model="txt1" lazy>
+		<input type="text" v-model="txt1" debounce="1000">
+		<input type="button" value="查看" v-on:click="watch">
+	</div>
+	<script src="vue1026.js"></script>
+	<script>
+		var vm= new Vue({
+			el:'.layout',
+			data:{
+				txt1:'',
+			},
+			methods:{
+				watch:function(){
+					alert(typeof this.txt1);
+				},
+			},
+		});
+	</script>
+</body>
+</html>

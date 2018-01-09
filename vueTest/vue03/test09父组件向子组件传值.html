@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="layout">
+		<parent></parent>
+	</div>
+	<template id="parent">
+			<div>
+				<div>父组件</div>
+				<child v-bind:id="age"></child>
+			</div>
+	</template>
+	<template id="child">
+		<div>
+			<div>子组件</div>
+			<div>{{id}}</div>
+		</div>
+	</template>
+	<script src="../vue221.js"></script>
+	<script>
+		Vue.component("parent",{
+			template:"#parent",
+			data:function(){
+				return {
+					age:19
+				}
+			},
+			components:{
+				"child":{
+					template:"#child",
+					props:["id"],
+				}
+			},
+		});
+		var vm = new Vue({
+			el:".layout",
+			data:{},
+			methods:{},
+		});
+	</script>
+</body>
+</html>

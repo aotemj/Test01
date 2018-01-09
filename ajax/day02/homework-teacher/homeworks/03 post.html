@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<form>
+			<label for=""><input type="text" name="username" id="username" /></label>
+			<label for=""><input type="text" name="username" id="password" /></label>
+			<span id="info"></span>
+			<input type="button" value="登录" name='username' id='btn' />
+
+		</form>
+		<script>
+			window.onload = function() {
+				var btn = document.querySelector("#btn");
+				btn.onclick = function() {
+					//1.创建XMLHttpRequest()实例对象:
+					var x = new XMLHttpRequest();
+					//2.准备发送:
+					var username = document.querySelector('#username').value;
+					var pw = document.querySelector('#password').value;
+					var param = 'username=' + username + '&password=' + pw;
+					x.open('post', '03 post.php');
+					//3.发送:
+					x.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+					x.send(param);
+					//4.服务器返回响应
+					x.onreadystatechange = function() {
+						if(x.readyState == 4 && x.status == 200) {
+							console.log(x.responseText);
+							var data = x.responseText;
+							var info = document.querySelector('#info');
+							if(data == '登陆成功') {
+								info.innerHTML = '登陆成功';
+							} else if(data == '密码错误') {
+								info.innerHTML = '密码错误';
+							} else if(data == '用户名不正确') {
+								info.innerHTML = '用户名不正确';
+							}
+							console.log(info.innerHTML);
+						}
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>

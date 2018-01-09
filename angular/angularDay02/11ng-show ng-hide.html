@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="box" ng-app ="myApp" ng-controller="myController">
+		<input type="button" value="点击显示隐藏" ng-click="showOrHide()" id="btn">
+		<input type="text" ng-model="val" id="">
+		<ul>
+			<li ng-show="isShow">这是一个li标签</li>
+		</ul>
+
+	</div>
+	<script src="angular.js"></script>
+	<script>
+		var app =angular.module("myApp",[]);
+		app.controller("myController",["$scope",function($scope){
+			$scope.isShow=true;
+			$scope.showOrHide=function(){
+				$scope.isShow=!$scope.isShow;
+				if($scope.isShow){
+					$scope.val="隐藏";
+				}else{
+					$scope.val="显示";
+				}
+			};
+		}]);
+	</script>
+</body>
+</html>

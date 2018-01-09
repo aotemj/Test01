@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>
+      Document
+    </title>
+    <script src="angular.js"></script>
+  </head>
+  <body>
+    <div class="box" ng-app="myApp" ng-controller="myController">
+      <input type="text" ng-model ="num1"/>
+      <input type="text" ng-model="num2"/>
+      <input type="button" value="=" ng-click="fn()"/>
+      <input type="text" ng-model="result"/>
+    </div>
+    <script>
+      var app = angular.module('myApp',[]);
+      app.controller('myController',function($scope){
+       $scope.fn=function(){
+        $scope.result= ($scope.num1-0)+($scope.num2-0);
+       }
+      });
+    </script>
+  </body>
+</html>

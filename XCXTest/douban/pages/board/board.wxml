@@ -1,0 +1,46 @@
+<!-- wxml中写结构 -->
+<view class="container">
+  <!-- 轮播 -->
+  <view class="slide">
+    <!-- 微信官方组件 -->
+    <swiper indicator-dots="{{indicatorDots}}"
+      autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{imgUrls}}" wx:key="">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" mode = "aspectFill"/>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- 列表项 -->
+  <view class="board">
+   <navigator url ="../list/list?name=正在热映&type=in_theaters" hover-class="none">
+      <view class="board-item">
+       <text>正在热映</text>
+       <!-- 右侧箭头 -->
+       <image src="../../images/arrowright.png"></image>
+     </view>
+   </navigator>
+   <navigator url ="../list/list?name=即将上映&type=coming_soon" hover-class="none">
+      <view class="board-item">
+       <text>即将上映</text>
+       <!-- 右侧箭头 -->
+       <image src="../../images/arrowright.png"></image>
+     </view>
+   </navigator>
+   <navigator url ="../list/list?name=TOP250&type=top250" hover-class="none">
+      <view class="board-item">
+       <text>TOP250</text>
+       <!-- 右侧箭头 -->
+       <image src="../../images/arrowright.png"></image>
+     </view>
+   </navigator>
+   <navigator url ="../list/list?name=北美票房榜&type=us_box" hover-class="none">
+      <view class="board-item">
+       <text>北美票房榜</text>
+       <!-- 右侧箭头 -->
+       <image src="../../images/arrowright.png"></image>
+     </view>
+   </navigator>
+  </view>
+</view>

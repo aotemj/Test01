@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+		<script src="angular.js"></script>
+	</head>
+	<body ng-app="myApp" ng-controller="myController">
+		<div class="box"></div>
+		<input type="button" value="点击" ng-click="fn()"/>
+		<script>
+					// angular.element(document).ready(function(){
+						var timerId =null;
+						var flag =true;
+						var myApp = angular.module("myApp",[]);
+						myApp.controller("myController",function($scope){
+
+								$scope.fn=function(){
+							if(flag){
+									flag=false;
+								tiemrId = $interval(function(){
+									var random = Math.floor(Math.random()*50);
+									angular.element(document.querySelector(".box")).html(random);
+								},150);
+							}else{
+									flag=true;
+									clearInterval(timerId);
+								}
+							};
+
+						});
+					// });
+				</script>
+	</body>
+</html>

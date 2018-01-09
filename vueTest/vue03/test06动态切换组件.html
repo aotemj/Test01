@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+	</head>
+	<body>
+		<div class="layout">
+			<parent></parent>
+		</div>
+		<template id="parent">
+			<div>
+				<a href="#" v-on:click="urlName='login'">
+					登录
+				</a>
+				<a href="#" v-on:click="urlName='register'">
+					注册
+				</a>
+				<component :is="urlName"></component>
+			</div>
+		</template>
+		<template id="login">
+			<div>登录页面</div>
+		</template>
+		<template id="register">
+			<div>注册页面</div>
+		</template>
+		<script src="../vue221.js"></script>
+		<script>
+			Vue.component("parent",{
+				template:"#parent",
+				data:function(){
+					return{
+						urlName:"login",
+					}
+				},
+				components:{
+					"login":{
+						template:"#login"
+					},
+					"register":{
+						template:"#register",
+					}
+				},
+			});
+			var vm = new Vue({
+				el:".layout",
+				data:{
+				},
+				methods:{},
+			});
+		</script>
+	</body>
+</html>

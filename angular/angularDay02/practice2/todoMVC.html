@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+		<style>
+		ul,li{
+			list-style:none;
+		}
+			.completed{
+				text-decoration:line-through;
+				color:#ccc;
+			}
+			/*span{
+				cursor:pointer;
+			}*/
+			.toDo ul li {
+				position:relative;
+			}
+			.toDo ul li span:first-of-type{
+				border:1px solid #000;
+				display:inline-block;
+				width:200px;
+				height:20px;
+				position:absolute;
+				left:0;
+				/*background-color: pink;*/
+			}
+			.toDo ul li input{
+				border:none;
+			}
+	.hide{
+		display:none;
+	}
+		</style>
+
+	</head>
+	<body>
+		<div class="box" ng-app="myApp" ng-controller="myController">
+			<form ng-submit="add()">
+				<input type="text" ng-model="newItem"/>
+			</form>
+			<div class="toDo">
+				<ul>
+					<li ng-repeat="item in arr track by $index" >
+						<input type="text"  ng-mouseover="hover($index)" ng-model="item.content" ng-class="{completed:item.isCompleted}"/><span ng-dblclick="dblclick($index)" ng-show="item.isShow"></span>
+						<span ng-click="delete($index)">x</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<script src="angular.js"></script>
+		<script>
+				var app = angular.module("myApp",[]);
+				app.controller("myController",["$scope",function($scope){
+					$scope.arr=[
+					{"content":"事件1","isCompleted":true,"isShow":true},
+					{"content":"事件2","isCompleted":false,"isShow":true},
+					{"content":"事件3","isCompleted":true,"isShow":true},
+					{"content":"事件4","isCompleted":false,"isShow":true},
+					{"content":"事件5","isCompleted":false,"isShow":true},
+					];
+					/*添加事件*/
+					$scope.add=function(){
+						// console.log($scope.newItem);
+						var obj ={
+							"content":$scope.newItem,
+							"isCompleted":false,
+							"isShow":true
+						};
+						$scope.arr.push(obj);
+						$scope.newItem='';
+					};
+					/*删除事件*/
+					$scope.delete=function($index){
+						for(var i =0;i<$scope.arr.length;i++){
+							if(i ==$index){
+									$scope.arr.splice(i,1);
+							}
+						}
+					}
+					/*双击*/
+					$scope.dblclick=function($index){
+						// console.log($index);
+						var s=$scope.arr[$index];
+						s.isShow=false;
+						var input = angular.element(document.querySelector(".toDo ul li input")[$index]);
+						// input.focus();
+						// console.log(input);
+					}
+				}]);
+			</script>
+	</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="layout">
+		<span v-text="txt" v-if="isShow"></span>
+		<input type="button" value="点击显示隐藏" v-on:click="toggle">
+	</div>
+	<script src="vue1026.js"></script>
+	<script>
+		var vm = new Vue({
+			el:'.layout',
+			data:{
+				isShow:true,
+				txt:"通过v-if控制元素的显示与隐藏的原理是直接把当前元素在dom树中删除与添加",
+			},
+			methods:{
+				toggle:function(){
+					this.isShow=!this.isShow;
+				}
+			},
+		});
+	</script>
+</body>
+</html>

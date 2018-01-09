@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.red{
+			background-color: red;
+		}
+		.green{
+			background-color: green;
+		}
+	</style>
+</head>
+<body>
+	<div class="box" ng-app="myApp" ng-controller="myController">
+		<ul>
+			<li ng-repeat="item in arr track by $index" class="{{$index%2==0?'green':'red'}}">{{item.name}},{{item.age}}</li>
+		</ul>
+	</div>
+	<script src="angular.js"></script>
+	<script>
+		var app =angular.module("myApp",[]);
+		app.controller("myController",["$scope",function($scope){
+			$scope.arr= [
+			{"name":"小明","age":18},
+			{"name":"小明","age":19},
+			{"name":"小明","age":20},
+			{"name":"小明","age":21},
+			{"name":"小明","age":22},
+			{"name":"小明","age":23},
+			{"name":"小明","age":34}
+			]
+		}]);
+	</script>
+</body>
+</html>

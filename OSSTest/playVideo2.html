@@ -1,0 +1,48 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"   content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+	<link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.3.5/skins/default/aliplayer-min.css" />
+	<script type="text/javascript" src="https://g.alicdn.com/de/prismplayer/2.3.5/aliplayer-min.js"></script></head>
+	<body>
+		<div class="prism-player" id="J_prismPlayer">
+
+	</div>
+	<script>
+
+</script>
+	<link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.3.5/skins/default/aliplayer-min.css" />
+	<script type="text/javascript" src="https://g.alicdn.com/de/prismplayer/2.3.5/aliplayer-min.js"></script>
+	<script type="text/javascript">
+			var player = Aliplayer({
+			id: "J_prismPlayer",
+			autoplay: false,
+			width: "1920px",
+			height: "1280px",
+			vid: "50bb7225313d443e97993d45bd776560"
+		});
+		document.write("<div id = 'J_prismPlayer' style='width: 1920px;height: 1280px;' class='prism-player'></div >");
+	window.onload = function () {
+		new Aliplayer({
+			id: "J_prismPlayer",
+			autoplay: false,
+			width: "1920px",
+			height: "1280px",
+			vid: "50bb7225313d443e97993d45bd776560",
+			// playauth: "6dg164cpd39qurwsg6vss3lz2wnr8gm1am8qvtua8jhzqy3qrnnib9uu3r1cc5en",
+			accId: 'LTAItLIiBnVWLRTA',
+			accSecret: 'KO2JNqoiyBUs5pGlSaCTwC3x2YILT7',
+			stsToken: '6dg164cpd39qurwsg6vss3lz2wnr8gm1am8qvtua8jhzqy3qrnnib9uu3r1cc5en'
+		});
+		function endedHandle()
+		{
+		  var newPlayAuth = "";
+		  player.replayByVidAndPlayAuth(vid,newPlayAuth);
+		}
+		player.on("ended", endedHandle);
+	};
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="layout">
+		<input type="text" v-focus v-color="color">
+	</div>
+	<script src="../vue1026.js"></script>
+	<script>
+		Vue.directive("focus",function(){
+			this.el.focus();
+		});
+		Vue.directive("color",function(){
+			this.el.style.color= this.vm[this.expression];
+		});
+		var vm = new Vue({
+			el:".layout",
+			data:{
+				color:"red",
+			},
+			methods:{},
+		});
+	</script>
+</body>
+</html>

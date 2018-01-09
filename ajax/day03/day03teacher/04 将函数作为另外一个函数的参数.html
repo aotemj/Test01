@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script type="text/javascript">
+
+	// 为什么要将一个函数作为另外一个函数的参数进行传递
+	// 希望另外一个函数的代码执行变得更加灵活，多样化
+	function qiuDay( thing ){
+		console.log("早上睡懒觉");
+		if(thing)
+		{
+			thing();
+		}else{
+			console.log("中午睡午觉");
+		}
+		
+		console.log("晚上睡觉");
+	}
+
+	//周一是这样过的，所以就调用函数
+	qiuDay();
+	//周二又是这样过的，又调用函数。
+	qiuDay();
+
+	//周三开始有变化
+	qiuDay(function (){
+		console.log("吃了一个鱼香肉丝饭");
+		console.log("开始上班");
+	});
+
+
+</script>
+</html>

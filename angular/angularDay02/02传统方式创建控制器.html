@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="angular1.2.30.js"></script>
+</head>
+<body ng-app>
+<div class="box" ng-controller="myController">
+	<input type="text" >
+		{{val}}
+	</div>
+	<script>
+		function myController($scope){
+			$scope.val="xiaoming";
+		}
+	</script>
+</body>
+</html>

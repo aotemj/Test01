@@ -1,0 +1,63 @@
+.list-container{
+	padding:0;
+	margin:0;
+}
+/*表头*/
+.list-container .title{
+	display:block;
+	margin:0;
+	height:120rpx;
+	line-height: 120rpx;
+	text-align: center;
+}
+/*列表内容*/
+.list-container .list{
+	background-color: pink;
+	height:1000rpx;
+	border:1px solid #000;
+}
+.list-item {
+	background-color: #fff;
+	margin-bottom:20rpx;
+	padding:20rpx;
+	box-sizing: border-box;
+	display:flex;
+	border-bottom:1px solid #eee;
+	border-top:1px solid #eee;
+}
+/*列表项图片*/
+.list-item .img image{
+	height:173rpx;
+	width:130rpx;
+}
+/*详细信息*/
+.list-item .info{
+	flex:1;
+	flex-direction:row-reverse;
+	align-items:center;
+	padding:20rpx;
+	height:150rpx;
+	box-sizing: border-box;
+	font-size: 24rpx;
+	display:flex;
+}
+.list-item .info .content .name{
+	font-size: 32rpx;
+}
+.list-item .info .score{
+	border-radius:30rpx;
+	text-align: center;
+	width:80rpx;
+	height:80rpx;
+	line-height:80rpx;
+	background-color:#D04300;
+	color:#fff;
+}
+.info .content {
+	flex:1;
+}
+/*电影原名*/
+.original-name{
+	/*font-size: 28rpx;*/
+}
+

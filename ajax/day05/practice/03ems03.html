@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+            <title>
+                Document
+            </title>
+            <style type="text/css">
+                #container{
+        width: 400px;
+        min-height: 300px;
+        background-color: lightgreen;
+        margin: auto;
+        padding: 10px;
+        text-align: center;
+    }
+    #container li{
+        list-style: none;
+        text-align: left;
+    }
+            </style>
+            <script src="./jquery.js" type="text/javascript">
+            </script>
+            <script src="template.js">
+            </script>
+        </meta>
+    </head>
+</html>
+<body>
+    <div id="container">
+        快递单号：
+        <input id="code" name="code" type="text">
+            <input id="btn" type="button" value="查询">
+                <div id="info">
+                </div>
+            </input>
+        </input>
+    </div>
+    <script>
+        $(function(){
+        $("#btn").click(function(){
+            var code = $('#code').val();
+            $.ajax({
+                type:'get',
+                data:{code:code},
+                dataType:'jsonp',
+                jsonp:'cb',
+                url:'ems.php',
+                success:function(data){
+                    //方法三:使用拼接字符串制作
+                    var tag ='<ul>';
+                    $.each(data.data.info.context,function(i,v){
+                        var time = v.time+'000';
+                        var  t = new Date();
+                        t.setTime(time);
+                        tag +='<li><span>'+t.getFullYear()+'年'+(t.getMonth()+1)+'月'+t.getDay()+'日'+((t.getHours()<12)?'上午':'下午')+(t.getHours()%12)+':'+t.getMinutes()+':'+t.getSeconds()+'</span><div>'+v.desc+'</div><li>';
+                    });
+                    tag+='</ul>';
+                    $("#info").html(tag);
+                }
+            });
+        });
+      });
+    </script>
+</body>
+<!-- http://localhost/day05/teacher/cross/ems.php?cb=jQuery111103271766268406078_1509241058101&code=9971121346085&_=1509241058102 -->
+<!-- 9971121346085 -->

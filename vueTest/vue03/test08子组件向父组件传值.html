@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="layout">
+		<parent></parent>
+	</div>
+	<template id="parent">
+		<div>
+			<div>父组件</div>
+			<child v-on:send="getData"></child>
+		</div>
+	</template>
+<template id="child">
+	<button v-on:click="sendData">发送</button>
+</template>
+	<script src="../vue221.js"></script>
+	<script>
+		Vue.component("parent",{
+			template:"#parent",
+			methods:{
+				getData:function(input){
+					console.log(input);
+				},
+			},
+			components:{
+				"child":{
+					template:"#child",
+					methods:{
+						sendData:function(){
+							this.$emit("send","hello");
+						},
+					},
+				},
+			},
+
+		});
+		var vm = new Vue({
+			el:".layout",
+			data:{},
+			methods:{},
+		});
+	</script>
+</body>
+</html>

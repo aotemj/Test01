@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+		<style>
+			a{
+				display:block;
+				float: left;
+				margin:0 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="layout"></div>
+		<script>
+								// - 动态向一个div中插入1000个div标签，如何实现？（考性能）
+								// var layout = document.querySelector(".layout");
+
+								// for(var i =0;i<1000;i++){
+								// 	var div =document.createElement("div");
+								// 	layout.appendChild(div);
+								// }
+								//
+								//
+								// -----------------------------------------------------
+								// - 用js创建10个a标签，点击的时候弹出来对应的序号
+								// var layout = document.querySelector(".layout");
+								// for(var i =0;i<10;i++){
+								// 	var a = document.createElement("a");
+								// 	a.href="#";
+								// 	a.innerText="链接"+i;
+								// 	layout.appendChild(a);
+								// }
+								// var  as = document.getElementsByTagName("a");
+
+								// for(var i =0;i<as.length;i++){
+								// 	as[i].onclick=function(){
+								// 	alert(this.innerText);
+								// 	}
+								// }
+
+								// -----------------------------------------------
+
+								//考察预解析
+								// if(!("a" in window)){
+								//   var a = 1;
+								// }
+								// console.log(a);//undefined
+								// 解释: 在js执行过程中,首先会在当前作用域中寻找var 和function声明,并对变量声明和函数声明进行提升,使其位于全局作用域的最顶端,然后再执行代码,当前代码中因为 有var a = 1;所有会先对a 进行变量名提升,此时a在window已经存在,但它的值为undefined ,因为当前作用域中没有其他的var 或function,所以开始执行代码,当执行到if时,判断条件为false ,所有无法执行if 中的代码,继续执行下面的输出语句: 所以a的值为undefined
+								// -----------------------------------------------
+
+								//考原型
+								// function MyObj(){
+								//   this.p.pid=this.p.pid+1;
+								// }
+								// MyObj.prototype.p = {'pid':0}
+								// MyObj.prototype.getNum = function(num){
+								//   return this.p.pid+num;
+								// }
+								// var _obj1 = new MyObj();
+								// var _obj2 = new MyObj();
+								// console.log(_obj1.getNum(1)+_obj2.getNum(2));//4: obj.getNum(1):1 obj2.getNum(2):3
+
+								 	// -----------------------------------------------
+								 	// function Foo() {
+								 	//  getName = function () { console.log (1); };
+								 	//  return this;
+								 	// }
+								 	// Foo.getName = function () { console.log (2);};
+								 	// Foo.prototype.getName = function () { console.log (3);};
+								 	// var getName = function () { console.log (4);};
+								 	// function getName() { console.log (5);}
+
+								 	// 	Foo.getName();//2
+								 	// 	getName();//4
+								 	// 	Foo().getName();//1
+								 	// 	getName();//1
+								 	// 	new Foo.getName();//2
+								 	// 	new Foo().getName();//3
+								 	// 	new new Foo().getName();//
+										// // -----------------------------------------------
+										// for(var i=0;i<10;i++){
+				      // 				 alert(i);
+				      // 				 break;
+				  				// 	 }
+				   			// 		alert(i);
+				   			// 		//0,0
+
+				   			// 	for(var i=0;i<10;i++){
+				    		// 		  continue;
+				    		// 	  alert(i);
+				  				// 	 }
+				  				//  alert(i)
+				  				//  //10
+								 			// -----------------------------------------------
+								 			// function C1(name){
+								 			// 	if(name) this.name = name;
+								 			// }
+								 			// function C2(name){
+								 			// this.name = name;
+								 			// }
+								 			// function C3(name){
+								 			//  this.name = name ||'join';
+								 			// }
+								 			// C1.prototype.name='Tom';
+								 			// C2.prototype.name='Tom';
+								 			// C3.prototype.name='Tom';
+								 			// alert((new C1().name)+(new C2().name)+(new C3().name));
+								 			// // TomTomjoin
+
+											// -----------------------------------------------
+											// var a=1;
+											// var obj ={
+											//    "name":"tom"
+											// }
+											// function fn(){
+											//    var a2 = a,obj2 = obj,a2 =a;
+											//    obj2.name ="jack";
+											// }
+											// fn();
+											// console.log(a);//1
+											// console.log(obj);//{"name":"jack"}
+											//
+											//
+												// -----------------------------------------------
+												// function fn(){
+												//     console.log(this);
+												// }
+												// fn();
+												//Window
+												// -----------------------------------------------
+												 // var obj = {
+								     //        fn1:function(){
+								     //            console.log(this);
+								     //        }
+								     //    }
+		        			// 		obj.fn1();
+		        					//obj
+		        					//-----------------------------------------------
+		        					// var obj = {
+		        					//     fn1:function(){
+		        					//         function fn2(){
+		        					//             console.log(this);
+		        					//         }
+		        					//         fn2();
+		        					//     }
+		        					// }
+		        					// obj.fn1();
+		        					//Window
+		        					//-----------------------------------------------
+
+		        					// var obj = {
+		        					//     fn1:function(){
+		        					//         setTimeout(
+		        					//         	function(){console.log(this)}
+		        					//         	,1000);
+		        					//     }
+		        					// }
+
+		        					// obj.fn1();	//Window
+
+		        					//-----------------------------------------------
+		        					// var obj = {
+		        					//     fn1:function(){
+		        					//         var _this = this;
+		        					//         function fn2(){
+		        					//             console.log(_this);
+		        					//         }
+		        					//         fn2();
+		        					//     }
+		        					// }
+		        					// var obj = {
+		        					//     fn1:function(){
+		        					//         function fn2(){
+		        					//             console.log(this);
+		        					//         }
+
+		        					//         fn2.bind(this)();
+		        					//     }
+		        					// }
+
+		        					// obj.fn1();//不会
+
+		        					//-----------------------------------------------
+		        					// function f1() {
+		        					//     var n = 999;
+		        					//     function f2() {
+		        					//         alert(n);
+		        					//     }
+		        					//     f2();
+		        					// }
+		        					// f1();//999
+
+		        					//-----------------------------------------------
+
+		        					// function f1() {
+		        					//     var n = 999;
+		        					//     function f2() {
+		        					//         alert(n);
+		        					//     }
+		        					//     return f2;
+		        					// }
+		        					// var result = f1();
+		        					// result();//999
+		        					//
+		        					//-----------------------------------------------
+		        					// var n = 999;
+		        					// function f1() {
+		      					  //   function f2() {
+		      					  //       alert(n);
+		      					  //   }
+		      					  //   return f2;
+		        					// }
+		        					// var result = f1();
+		        					// result();//999
+		        					//
+		        					//-----------------------------------------------
+		        					//    var name = "The Window";
+		        					//    var n = 200;
+		        					// 　　var object = {
+		        					// 　　　　name: "My Object",
+		        					// 　　　　getNameFunc: function () {
+		        					//           var n = 100;
+		        					// 　　　　　　return function () {
+		        					//                 n++;
+		        					//     　　　　　　　console.log(n);
+		        					// 　　　　　　};
+		        					// 　　　　}
+		        					// 　　};
+		        					//     object.getNameFunc()();//101
+		        					//-----------------------------------------------
+		        					//    var name = "The Window";
+		        					//    var n = 200;
+		        					// 　　var object = {
+		        					// 　　　　name: "My Object",
+		        					// 　　　　getNameFunc: function () {
+		        					//           var n = 100;
+		        					// 　　　　　　return function () {
+		        					//                 console.log(this.name);
+		        					//                 n++;
+		        					//     　　　　　　　console.log(n);
+		        					// 　　　　　　};
+		        					// 　　　　}
+		        					// 　　};
+		        					//     object.getNameFunc()();//The Window 101
+		        					//-----------------------------------------------
+		        					// var length = 10;
+		        					// function fn() {
+		        					// 	console.log( this.length );
+		        					// }
+		        					// var obj = {
+		        					// 	length: 5,
+		        					// 	method: function ( fn ) {
+		        					// 		fn();
+		        					// 		arguments[ 0 ]();
+		        					// 	}
+		        					// };
+		        					// obj.method( fn, 1 );//10,2
+		        					//-----------------------------------------------
+		        					//apply:借调:
+		        					// function fn(){
+		        					// 	console.log(this);
+		        					// }
+		        					// // fn();
+		        					// var o ={name:"zs"};
+		        					// fn.apply(null);
+		        					// fn.apply(o);
+		        					//-----------------------------------------------
+		        					// function sum(a,b){
+		        					// 	return a+b;
+		        					// }
+		        					// var o ={name:"jack"};
+		        					// var sum1 = sum.apply(o,[3,10]);
+		        					// console.log(sum1);
+		        					//-----------------------------------------------
+		        		// 			function sum(a,b){
+												// return a+b;
+		        		// 			};
+		        		// 			var o={name:"jack"};
+		        		// 			var sum1=sum.call(o,3,10,2);
+		        		// 			console.log(sum1);
+		        					//-----------------------------------------------
+		        					//-----------------------------------------------
+		        					//-----------------------------------------------
+		        					//-----------------------------------------------
+		        					//-----------------------------------------------
+
+							</script>
+	</body>
+</html>

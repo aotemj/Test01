@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>评论动态加载</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="jquery.js"></script>
+		<script>
+			
+			$(function(){
+//				# 评论查询接口
+//				## 查询评论信息
+//				- 接口地址 http://localhost/comment/data.php
+//				- 请求方式 get
+//				- 请求参数
+//				    + last 最新页码（数据加载的次数），从0开始
+//				    + amount 每页数据条数（每次加载数据的条数）
+//				- 响应数据 (**如果返回值为1表示没有更多内容了，否则返回如下内容**)
+				function addComment(param){
+					$.ajax({
+						type:'get',
+						url:'data.php',
+						data:param,
+						dataType:'json',						
+						success:function(data){
+							if(data==1){
+								$("#more").html("没有更多的内容可以加载了..");
+							}
+//							console.log("1");
+							console.log(data);
+							//拼接字符串
+							var tag='';
+							for(var i=0;i<data.length;i++){
+								tag+='<li class="comment"><div class="left"><img src="'+data[i].imgpath+'"></div><div class="right"><div>'+data[i].nickname+'</div><div>'+data[i].content+'</div></div></li><hr>';
+							}
+							//将拼接好的字符串添加都页面上:
+							$("#contentList").append(tag);
+						}
+					});
+				}
+				var page=0;
+				addComment({"last":page,"amount":2});
+				$("#more").on("click",function(){
+					page++;
+					addComment({
+						'last':page,
+						'amount':2
+					});
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<div style="height:300px;"></div>
+		<div id="container">
+			<ul id="contentList">
+				<!-- <li class="comment">
+        <div class="left"><img src="./g1.jpg"></div>
+        <div class="right">
+            <div>一篇工作总结</div>
+            <div>上述知情人士透露，目前业内一些公司准备了专门的名单从电信运营商定向挖人，其筹码是数倍于运营商的薪酬、股权激励以及企业运营决策的自主权。</div>
+        </div>
+    </li>
+    <hr>
+    <li class="comment">
+        <div class="left"><img src="./g1.jpg"></div>
+        <div class="right">
+            <div>一篇工作总结</div>
+            <div>上述知情人士透露，目前业内一些公司准备了专门的名单从电信运营商定向挖人，其筹码是数倍于运营商的薪酬、股权激励以及企业运营决策的自主权。</div>
+        </div>
+    </li>
+    <hr> -->
+			</ul>
+			<div id="more">加载更多...</div>
+			<input type="hidden" id="last" value="0">
+		</div>
+
+	</body>
+
+</html>

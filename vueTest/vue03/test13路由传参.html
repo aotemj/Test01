@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script src="../vue221.js"></script>
+	<script src="../vue-router231.js"></script>
+	<script>
+
+		/*登录组件*/
+		var login = Vue.component("login",{
+				template:"#login",
+				data:function(){
+					return {
+
+					}
+				}
+		});
+		/*注册组件*/
+		var register = Vue.component("register",{
+			template:"#register",
+			data:function(){
+				return {}
+			}
+		});
+		/*创建vue路由实例对象*/
+		var router = new VueRouter({
+			routes:[
+			path
+			],
+		});
+		/*创建vue实例对象*/
+		var vm = new Vue({
+			el:".layout",
+			data:{},
+			methods:{},
+			router:router,
+		});
+	</script>
+</body>
+</html>

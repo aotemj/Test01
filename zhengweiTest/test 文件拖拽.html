@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+		<style>
+			div{
+				width:400px;
+				height:300px;
+				border:1px solid blue;
+			}
+			p{
+				background-color: green;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="box" id="box">
+			<p draggable="true" id="p1">1</p>
+			<p draggable="true" id="p2">2</p>
+		</div>
+		<div class="box1" id="box1"></div>
+		<script>
+			window.onload=function(){
+				document.ondragstart=function(e){
+					e.dataTransfer.setData("text/html",e.target.id);
+				};
+				document.ondragover=function(e){
+					e.preventDefault();
+				};
+				document.ondrop=function(e){
+					var id = e.dataTransfer.getData("text/html");
+					e.target.append(document.querySelector("#"+id));
+				}
+
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		[v-cloak]{
+			display:none;
+		}
+	</style>
+</head>
+<body>
+	<div class="layout" v-cloak>
+		{{time|dateFormat}}
+	</div>
+	<script src="../vue1026.js"></script>
+	<script>
+		Vue.filter("dateFormat",function(input){
+			var res ="";
+			var year =input.getFullYear();
+			var month = input.getMonth()+1;
+			var date = input.getDate();
+			res +=year+'-'+month+"-"+date;
+			return res;
+		});
+		var vm = new Vue({
+			el:".layout",
+			data:{
+				time:new Date(),
+			},
+			methods:{},
+		});
+	</script>
+</body>
+</html>

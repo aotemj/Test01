@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			隔行变色
+		</title>
+		<style>
+				table{
+						border:1px solid #000;
+						width:100px;
+				}
+		.red{
+			background-color:red;
+		}
+		.green{
+			background-color: green;
+		}
+			</style>
+		<script src= "angular.js"></script>
+	</head>
+	<body>
+		<table ng-app ="myApp" ng-controller="myController">
+			<tr class="red" ng-repeat="item in data">
+				<td class="{{ item.id%2==0?'red':'green' }}">
+					{{ item.name }},{{ item.age }}
+				</td>
+			</tr>
+		</table>
+		<script>
+				angular.module("myApp",[]).controller('myController',function($scope){
+					$scope.data=[
+						{"id":1,"name":"小明","age":19},
+						{"id":2,"name":"小红","age":11},
+						{"id":3,"name":"小黑","age":12},
+						{"id":4,"name":"小蓝","age":13},
+						{"id":5,"name":"小绿","age":14},
+						{"id":6,"name":"小请","age":15},
+					];
+				});
+			</script>
+	</body>
+</html>

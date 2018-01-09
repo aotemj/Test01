@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="layout">
+		<parent></parent>
+	</div>
+	<template id="parent">
+			<div>
+				<router-link to="/login">登录</router-link>
+				<router-link to="/register">注册</router-link>
+				<router-view></router-view>
+			</div>
+	</template>
+	<template id="login">
+		<div>
+			<div>登录页面</div>
+		</div>
+	</template>
+	<template id="register">
+		<div>
+			<div>注册页面</div>
+		</div>
+	</template>
+	<script src="../vue221.js"></script>
+	<script src="../vue-router231.js"></script>
+	<script>
+			var login = Vue.component("login",{
+				template:"#login",
+			});
+			var register = Vue.component("register",{
+				template:"#register",
+			});
+		var router = new VueRouter({
+			routes:[
+				{path:"/",redirect:"/login"},
+				{path:"/login",component:login},
+				{path:"/register",component:register}
+			],
+		});
+		Vue.component("parent",{
+			template:"#parent",
+			components:{
+				"child":{
+					template:"#child",
+				},
+			},
+		});
+		var vm = new Vue({
+			el:".layout",
+			data:{},
+			methods:{},
+			router:router,
+		});
+	</script>
+</body>
+</html>

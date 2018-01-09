@@ -1,0 +1,33 @@
+.container{}
+text{
+	line-height: 50rpx;
+}
+.img{
+	margin:50rpx auto;
+	width:470rpx;
+}
+.img image {
+	width:100%;
+}
+.title{
+	text-align: center;
+	font-size: 40rpx;
+}
+.info{
+	color:#9A9F9B;
+	font-size: 28rpx;
+	width:500rpx;
+	margin:50rpx auto;
+}
+.desc{
+	width:600rpx;
+  margin:50rpx auto;
+	margin-bottom:200rpx;
+  text-align: left;
+}
+.summary{
+	text-indent: 2rem;
+	color:#9A9F9B;
+	font-size: 28rpx;
+	line-height: 50rpx;
+}

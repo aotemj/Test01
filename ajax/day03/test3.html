@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src='packagingAjax.js'></script>
+	</head>
+
+	<body>
+		<form action="">
+			<input type="button" value="获取数据" id="btn" />
+		</form>
+		<script>
+			window.onload = function() {
+				var btn = document.querySelector("#btn");
+				btn.onclick = function() {
+					//手动获取数据
+					// var x = new XMLHttpRequest();
+					// x.open("get", 'test3.php');
+					// x.send(null);
+					// x.onreadystatechange = function() {
+					// 	if(x.readyState == 4 && x.status == 200) {
+					// 		var data = x.responseText;
+					// 		console.log(data);
+					// 		data = JSON.parse(data);
+					// 		console.log(data);
+					// 	}
+					// }
+					// -------------------------------------
+					// 封装获取数据
+					ajax({
+						type:'get',
+						data:'',
+						dataType:'json',
+						url:'test3.php',
+						success:function(data){
+							console.log(data);
+							data = JSON.parse(data);
+							console.log(data);
+							
+						}
+
+					});
+				}
+			}
+		</script>
+	</body>
+
+</html>

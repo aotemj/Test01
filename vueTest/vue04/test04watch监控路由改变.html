@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<!-- vue控制区域 -->
+	<div class="layout">
+		<router-link to="/login">登录</router-link>
+		<router-link to="/register">注册</router-link>
+		<router-view></router-view>
+	</div>
+	<!-- 登录组件模板 -->
+	<template id="login">
+		<div>
+			<div>登录组件</div>
+		</div>
+	</template>
+	<!-- 注册组件模板 -->
+	<template id="register">
+		<div>
+			<div>注册组件</div>
+		</div>
+	</template>
+	<script src="../vue221.js"></script>
+	<script src="../vue-router231.js"></script>
+	<script>
+		/*登录组件定义*/
+		var login = Vue.component("login",{
+			template:"#login",
+		});
+		/*注册组件定义*/
+		var register = Vue.component("register",{
+			template:"#register",
+		});
+		/*实例化路由对象*/
+		var router = new VueRouter({
+			routes:[
+			{path:'',redirect:"/login"},
+			{path:'/login',component:login},
+			{path:'/register',component:register}
+			],
+		});
+		/*实例化vue对象*/
+
+		var vm = new Vue({
+			el:".layout",
+			data:{},
+			methods:{},
+			router:router,
+			watch:{
+				$route:function(now,old){
+					console.log(now,old);
+				},
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="layout">
+		<parent ref="mycom"></parent>
+		<div ref="mydiv">普通div</div>
+	</div>
+	<template id="parent">
+		<div>
+			<div>父组件</div>
+		</div>
+	</template>
+	<script src="../vue221.js"></script>
+	<script>
+		Vue.component("parent",{
+			template:"#parent",
+		});
+		var vm = new Vue({
+			el:".layout",
+			data:{},
+			methods:{},
+		});
+		console.log(vm.$refs.mycom);
+		console.log(vm.$refs.mydiv);
+	</script>
+</body>
+</html>

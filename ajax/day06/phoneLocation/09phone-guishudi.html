@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+            <title>
+                手机归属地查询-聚合数据接口测试
+            </title>
+            <style>
+                #container{
+			width: 500px;
+			min-height: 300px;
+			background-color: pink;
+			margin: auto;
+			padding: 10px;
+			text-align: center;
+		}
+		ul{
+			list-style: none;
+		}
+            </style>
+            <script src="jquery.js">
+            </script>
+            <script src="template.js">
+            </script>
+            <script id="abc" type="text/html">
+                <ul>
+				<li>省份：{{province}}</li>
+				<li>城市：{{city}}</li>
+				<li>区号：{{areacode}}</li>
+				<li>邮编：{{zip}}</li>
+				<li>运营商：{{company}}</li>
+				<li>卡类型：{{card}}</li>
+			</ul>
+            </script>
+            <script>
+                $(function(){
+			$("#btn").click(function(){
+				var code=$("#phone").val();
+				var key="f6b38fd435e0873ba951487ab970a352";
+				$.ajax({
+					url:"http://apis.juhe.cn/mobile/get",
+					type:"get",
+					// data:{phone:XXX,key:XXX,dtype:"json"},//dtype:返回数据的格式,xml或json，默认json,可不填写
+					data:{phone:code,key:key},
+					dataType:"jsonp",
+					success:function(data){
+						console.log(data);
+						var html=template("abc",data.result);
+    					$("#info").html(html);
+					}
+				});
+			});
+		});
+            </script>
+        </meta>
+    </head>
+    <body>
+        <div id="container">
+            请输入手机号码：
+            <input id="phone" type="text">
+                <input id="btn" type="button" value="查询">
+                    <div id="info">
+                    </div>
+                </input>
+            </input>
+        </div>
+    </body>
+</html>

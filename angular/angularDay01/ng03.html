@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src= "angular.js"></script>
+</head>
+<body ng-app="myApp">
+	<div >
+			<p></p>
+	</div>
+<script>
+		var myApp = angular.module('myApp',[]);
+		myApp.controller('myController',function($scope){
+			$scope.testName ="小红";
+		});
+</script>
+</body>
+</html>

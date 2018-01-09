@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body ng-app="myApp">
+	<div ng-view></div>
+	<script src="angular.js"></script>
+	<script src="angular-route.js"></script>
+	<script>
+		var app =angular.module("myApp",["ngRoute"]);
+		app.config(["$routeProvider",function($routeProvider){
+			$routeProvider.when('/company/:name?',{
+				template:'{{msg}}',
+				controller:"myController"
+			}).when("/404",{
+				template:"您所找的公司不存在"
+			}).otherwise({
+				redirectTo:"/404"
+			});
+		}]);
+		app.controller("myController",["$scope","$routeParams",function($scope,$routeParams){
+			$scope.data={
+				"ali":"三楼",
+				"baidu":"四楼",
+				"tx":"2楼"
+			}
+			$scope.msg="您要找的公司在"+$scope.data[$routeParams.name];
+		}]);
+	</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="layout">
+		<input type="button" value="获取get请求" v-on:click="toggle">
+		{{obj|json}}
+	</div>
+	<script src="../vue1026.js"></script>
+	<script src="../vue-resource121.js"></script>
+	<script>
+		var vm  = new Vue({
+			el:".layout",
+			data:{
+				obj:null,
+			},
+			methods:{
+				toggle:function(){
+					var url="http://vue.studyit.io/api/getprodlist";
+					this.$http.get(url).then(function(response){
+						// console.log(response.body);
+						this.obj=response.body;
+					});
+				}
+			},
+		});
+ // var url="http://vue.studyit.io/api/getprodlist";
+
+	</script>
+</body>
+</html>

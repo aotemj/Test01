@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body ng-app="myApp">
+	<div class="box" my-btn ng-transclude>这是通过transclude替换掉模板内的内容</div>
+	<script id="tmp" type="text/ng-template">
+		<ul>
+				<li>这是通过tempalteUrl添加的模板,这个模板具有transclude属性</li>
+		</ul>
+	</script>
+	<script src="angular.js"></script>
+	<script>
+		var app =angular.module("myApp",[]);
+		app.directive("myBtn",[function(){
+			return {
+				templateUrl:'tmp',
+				transclude:true
+			}
+		}]);
+	</script>
+</body>
+</html>

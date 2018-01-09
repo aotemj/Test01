@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+		<style>
+		[v-cloak]{
+			display:none;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="layout" v-cloak>
+			<ul>
+				<li v-for="item in arr">{{item}}</li>
+				<!-- <li v-for="item in arr "track-by="$index">
+					{{ $index }}-{{ item }}
+				</li> -->
+			</ul>
+		</div>
+		<script src="vue221.js"></script>
+		<!-- <script src="vue1026.js"></script> -->
+		<script>
+				var vm = new Vue({
+					el:'.layout',
+					data:{
+					arr:[1,2,3,1],
+					obj:{
+						"name":"xiaoming",
+						"age":18,
+						"lover":{
+							"sing":12,
+							"run":'run'
+						}
+					},
+					},
+		methods:{
+			login:function(){
+				console.log(typeof this.name);
+			},
+		},
+				});
+				console.log(typeof vm.name);
+			</script>
+	</body>
+</html>

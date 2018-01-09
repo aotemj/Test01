@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+		<style>
+		.box{
+			margin:0 auto;
+			width:800px;
+			/*background-color: pink;*/
+			text-align: center;
+		}
+			table{
+				width:800px;
+				border-collapse:collapse;
+				margin:20px auto;
+			}
+		th,td{
+			text-align: center;
+			background-color: skyblue;
+			border:1px solid #000;
+		}
+		[v-cloak]{
+			display:none;
+		}
+		</style>
+	</head>
+	<body>
+		<div class="layout" v-cloak>
+			<div class="box">
+			<form v-on:keydown.f2="add">
+				<input type="text" v-model="newItem"/>
+				<input type="text" placeholder="根据品牌名筛选" v-model="sName">
+				<input type="button" v-on:click="add" value="添加数据"/>
+			</form>
+			</div>
+			<table>
+				<tr>
+					<th>
+						编号
+					</th>
+					<th>
+						品牌
+					</th>
+					<th>
+						添加时间
+					</th>
+					<th>
+						操作
+					</th>
+				</tr>
+				<tr v-for="(index,item) in arr |filterBy sName in 'brand'">
+					<td>
+						{{ index+1 }}
+					</td>
+					<td>
+						{{ item.brand }}
+					</td>
+					<td>
+						{{ item.time }}
+					</td>
+					<td>
+						<a href="#" v-on:click="remove(index)">
+							删除
+						</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<script src="../vue1026.js"></script>
+		<script>
+			Vue.directive("on").keyCodes.f2=113;
+			var vm =new Vue({
+				el:'.layout',
+				data:{
+					newItem:'',
+					sName:"",
+					arr:JSON.parse((localStorage.getItem("brands"))||"[]"),
+				},
+				methods:{
+					add:function(){
+						if(this.newItem=="") return;
+						for(var k in this.arr){
+							if(this.newItem==this.arr[k].brand){
+								alert("您要添加的品牌已存在");
+								this.newItem="";
+								return;
+							};
+						};
+						var obj = {
+							brand:this.newItem,
+							time:new Date(),
+						};
+						this.arr.push(obj);
+						this.newItem="";
+						localStorage.setItem("brands",JSON.stringify(this.arr));
+					},
+					remove:function(id){
+						for(var i =0;i<this.arr.length;i++){
+							if(i==id){
+								this.arr.splice(i,1);
+								localStorage.setItem("brands",JSON.stringify(this.arr));
+							}
+						};
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

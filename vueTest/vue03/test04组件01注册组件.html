@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>
+			Document
+		</title>
+	</head>
+	<body>
+		<div class="layout">
+			<login></login>
+			<register></register>
+			<account></account>
+		</div>
+		<template id="account">
+			<div>通过tempalte注册组件</div>
+		</template>
+		<script src="../vue221.js"></script>
+		<script>
+				/*方法1:*/
+				/*声明组件*/
+				var login = Vue.extend({
+					template:"<div>使用Vue.extend方式创建的组件</div>",
+				});
+				/*注册组件*/
+		Vue.component("login",login);
+		/*方法2*/
+		Vue.component("register",{
+			template:"<div>使用Vue.componet直接注册组件</div>"
+		});
+		/*方法3*/
+		Vue.component("account",{
+			template:"#account",
+		});
+
+				var vm = new Vue({
+					el:".layout",
+					data:{},
+					methods:{},
+				});
+			</script>
+	</body>
+</html>
