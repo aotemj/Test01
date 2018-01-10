@@ -94,7 +94,6 @@
 
 - 获取当前文件的文件名
  '__dirname';
-
 - path.extname(目标路径);
 	作用： 获取目标路径的扩展名
 ````js
@@ -144,5 +143,64 @@ console.log(path.normalize('c:\\foo/,123/abgc\zz.index'));//c:\foo\,123\abgczz.i
 		作用：表示路径分隔符： window 中是\  linux 中是/
 	+ path.sep
 		作用： 表示环境变量分隔符：windowh中是 ; linux 中使用 :
+
+### 异步I/O(input/output)
+
+- 文件操作
+	文件操作之前要引入文件系统模块：
+````js
+	const fs = require('fs');
+````
+
+	+ 文件信息获取
+
+	fs.stat(path,callback);
+
+	path为传入的要获取的文件信息的路径,callback为这个path的回调函数
+
+	callback中有两个参数： err,stat
+
+	err为错误信息 如果传入的path有错误则返回错误信息，否则返回null
+
+	stat为当前path的对象信息，stat所包含的常用方法有：
+
+	stat.isFile();判断当前传入的path是否为一个文件
+
+	stat.isDirectory();判断当前传入的path是否为一个文件夹
+
+	stat.atime; 文件的访问时间
+
+	stat.ctime; 文件的状态信息发生变化的时间（如文件权限）
+
+	stat.mtime; 文件数据发生变化的时间
+
+ 	stat.birthtime; 文件创建的时间
+
+````js
+	fs.stat('../nodeJsTest/10.js',(err,stat)=>{
+		//第一个参数为错误信息：
+		console.log(err);
+		//如果有错误，输出错误信息，否则输出null
+		/*
+		{ Error: ENOENT: no such file or directory, stat 'D:\wamp\www\Test\nodeJsTest\10.js'
+		  errno: -4058,
+		  code: 'ENOENT',
+		  syscall: 'stat',
+		  path: 'D:\\wamp\\www\\Test\\nodeJsTest\\10.js' }
+		 */
+		});
+		if(err) return;// 如果有错误，直接返回，后续的操作没有意义
+		// stat.isFile()用来判断path参数传入的是 否为一个文件
+		// stat.isDirectory()用来判断path参数传入的是否为一个目录
+		if(stat.isFile()){
+			console.log('这是一个文件');
+			}else if(stat.isDirectory()){
+			console.log('这是一个目录');
+		}
+
+````
+
+
+- 网络操作
 
 
