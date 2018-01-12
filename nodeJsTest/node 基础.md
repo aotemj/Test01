@@ -199,7 +199,31 @@ console.log(path.normalize('c:\\foo/,123/abgc\zz.index'));//c:\foo\,123\abgczz.i
 		}
 
 ````
+	+ 读文件操作：
+		fs.readFile();
+````js
+	let fs = require('fs');
+	let path = __filename;
+	//方法1 :
+	fs.readFile(path,(err,data)=>{
+		if(err) return;
+		console.log(data.toString());
+	});
 
+	//方法2 :
+	fs.readFile(path,'utf8',(err,data)=>{
+		if(err) return;
+		console.log(data);
+		});
+
+	//方法3(同步):
+	let data = fs.readFileSync(path);
+	console.log(data.toString());
+
+	//方法4（同步）；
+	let data = fs.readFileSync(path,'utf8');
+	console.log(data);
+````
 
 - 网络操作
 
