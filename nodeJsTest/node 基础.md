@@ -225,6 +225,11 @@ console.log(path.normalize('c:\\foo/,123/abgc\zz.index'));//c:\foo\,123\abgczz.i
 	console.log(data);
 ````
 
++ 写文件操作
+
+	fs.writeFile();
+
+
 - 网络操作
 
 
