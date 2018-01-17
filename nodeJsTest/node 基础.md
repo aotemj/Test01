@@ -227,8 +227,32 @@ console.log(path.normalize('c:\\foo/,123/abgc\zz.index'));//c:\foo\,123\abgczz.i
 
 + 写文件操作
 
-	fs.writeFile();
+	fs.writeFile(文件路径,写入的内容,回调函数);
 
+````js
+	const fs = require('fs');
+	const path = require('path');
+
+	let strpath = path.join(__dirname,'data.txt');
+
+	//写入字符串
+	fs.writeFile(strpath,'hello',(err)=>{
+			console.log(err); //如果打印的是null，则说明写文件成功，否则说明写文件失败
+			if(!err){
+				console.log('写入文件成功');
+			}
+		});
+
+	//写入buffer对象:
+	let buf = Buffer.from('hello1');
+	fs.writeFile(strpath,buf,(err)=>{
+		if(!err){
+			console.log('写入文件成功');
+		}
+		});
+	//同步操作：
+	fs.writeFileSync(strpath,'syncWriteFile');
+````
 
 - 网络操作
 
