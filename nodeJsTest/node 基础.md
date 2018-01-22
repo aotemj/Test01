@@ -253,7 +253,187 @@ console.log(path.normalize('c:\\foo/,123/abgc\zz.index'));//c:\foo\,123\abgczz.i
 	//同步操作：
 	fs.writeFileSync(strpath,'syncWriteFile');
 ````
+- 文件的流式操作（大文件操作）
+
+````js
+	//fs.createReadStream(path[,options]);
+	//fs.createWriteStream(path[,options]);
+
+	const path = require('path');
+	const fs = require('fs');
+
+	//原始路径：
+	let spath = path.join(__dirname,'bigfile.zip');
+	let dpath = path.join('c:\\users\\zhaoxinlei\\Desktop','bigfile.zip');
+
+	let readStream = fs.createReadStream(spath);
+	let writeStream = fs.createWriteStream(dpath);
+
+	//写入数据
+	//num 用来记录写入文件的次数
+	let num = 1;
+	readStream.on('data',(chunk)=>{
+		num++;//每写入一次数据，num+1
+		writeStream.write(chunk);//一块一块的写入数据
+	});
+
+	//检测写入数据是否完成
+	readStream.on('end',()=>{
+		console.log('文件写入完成');
+		console.log('文件共写入了'+num+'次');
+	});
+
+	//pipe(管道)方式写入：
+	//方式1：
+	readStream.pipe(writeStream);
+
+	//方式2：
+	fs.createReadStream(cpath).pipe(fs.createWriteStream(dpath));
+
+````
+- 目录操作：
+	+创建目录：
+	fs.mkdir(path[,mode],callback)//异步方法
+	fs.mkdirSync(path[,mode]);//同步方法
+
+````js
+ const fs = require('fs');
+ const path = require('path');
+
+//创建目录（异步方法）
+fs.mkdir(path.join(__dirname,'newDir'),(err)=>{
+		if(!err){
+			console.log("创建目录成功");
+		}
+	});
+
+//创建目录（同步方法）
+fs.mkdir(path.join(__dirname,'newDir'));
+
+````
+- 文件操作案例（初始化目录结构）
+
+````js
+	//需求：创建项目模板目录（文件夹：css、js；文件：index.html）
+
+	const path = require('path');
+	const fs = require('fs');
+
+	let dpath = path.join('c:\\users\\zhaoxinlei\\desktop');
+	//基础数据
+	let initData:{
+		projectName:'demo',
+		data:[
+			{
+				type:'dir',
+				name:'css'
+			},
+			{
+				type:'dir',
+				name:'js'
+			},
+			{
+				type:'file',
+				name:'index.html',
+				content:'`
+					<!DOCTYPE html>
+					<html lang="en">
+					<head>
+						<meta charset="UTF-8">
+						<title>Document</title>
+					</head>
+					<body>
+
+					</body>
+					</html>
+				`'
+			}
+		]
+	}
+
+	fs.mkdir(path.join(dpath,initData.projectName),(err)=>{
+		if(err) return;
+		initData.data.forEach((item,index)=>{
+			if(item.type=="dir"){
+				fs.mkdir(path.join(dpath,initData.projectName,item.name),(err)=>{
+					if(err) return;
+					});
+			}else if(item.type=="file"){
+				fs.writeFile(path.join(dpath,initData.projectName,item.name),item.content,(err)=>{
+					if(err) return;
+					});
+			}
+		});
+
+	});
+````
+
+### 服务器功能
+
+- 初步实现服务器功能：
+````js
+	//引入http模块
+	const http = require('http');
+
+	//创建服务器实例对象
+	let server = http.createServer();
+	//绑定请求事件
+	server.on('request',(req,res)=>{
+		res.end('hello');
+	});
+
+	//监听端口
+	server.listen(3000);
+
+	//-------------------------------------
+	//简便写法：
+	const http = require('http');
+	http.createServer((req,res)=>{
+		res.end('hello');
+	}).listen(3000);
+
+	//关于 listen 的参数：
+	//server.listen([port][, host][, backlog][, callback])
+	const http = require('http');
+	http.createServer((req,res)=>{
+		res.end('hello');
+	}).listen(3000,'192.168.0.1',()=>{
+		console.log('running')
+	});
+````
+-处理请求路径的分发：
+
+````js
+	//1、req对象是Class:http.IncomingMessage的实例对象
+	//2、res对象是Class:http.serverResponse的实例对象
+
+	//req.url可以获取URL中的路径（端口之后的部分）；
+
+	const http = require('http');
+	http.createServer((req,res)=>{
+		if(req.url.startsWith('/index')){
+			// res.write()方法可以写多次，每次的内容拼接在一起响应给客户端
+			res.write('hello');
+			res.write('world');
+			//res.write()方法用于结束响应，只可以写一次，可以传递参数，也可以不传递
+			res.end('index');
+		}else if(req.url.startsWith('/about')){
+			res.end('about');
+		};
+	}).listen(3000);
+
+````
 
 - 网络操作
+
+
+
+
+
+
+
+
+
+
 
 
