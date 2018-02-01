@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script src="./build/react.js"></script>
+  <script src="./build/react-dom.js"></script>
+  <script src="./build/browser.min.js"></script>
+</head>
+<body>
+  <div id="example"></div>
+  <script type="text/babel">
+    var names =['xiaoming','xiaohong','xiaolan'];
+
+    ReactDOM.render(
+      <div>
+        {
+          names.map(function(item,index){
+            return <div key={index}>hello,{item}!</div>
+          })
+        }
+      </div>,
+      document.querySelector('#example')
+    )
+  </script>
+</body>
+</html>
