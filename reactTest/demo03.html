@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="./build/react.js"></script>
+	<script src="./build/react-dom.js"></script>
+	<script src="./build/browser.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
+		var arr = [
+			<div key="1">hello world 01</div>,
+			<div ket="2">hello world 02</div>
+		];
+		ReactDOM.render(
+			<div>{arr}</div>,
+			document.querySelector('#example')
+		)
+	</script>
+</body>
+</html>
