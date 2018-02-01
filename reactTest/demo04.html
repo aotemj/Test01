@@ -10,14 +10,17 @@
 <body>
 	<div id="example"></div>
 	<script type="text/babel">
-		var arr = [
-			<div key="1">hello world 01</div>,
-			<div key="2">hello world 02</div>
-		];
+		var HelloMsg = React.createClass({
+			render:function(){
+				return <div>hello,{this.props.name}</div>
+			}
+		});
+
 		ReactDOM.render(
-			<div>{arr}</div>,
+			<HelloMsg name = 'xiaohong'></HelloMsg>,
 			document.querySelector('#example')
 		)
+
 	</script>
 </body>
 </html>
