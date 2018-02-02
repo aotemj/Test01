@@ -10,29 +10,30 @@
 <body>
 	<div id="example"></div>
 	<script type="text/babel">
-		var LikeButton = React.createClass({
+		var ToggleInput = React.createClass({
 			getInitialState:function(){
-				return {
+				return{
 					isDisabled:true
 				}
 			},
-			handleClick:function(){
+			handleClick:function(e){
+			console.log(this.state.isDisabled);
 				this.setState({
-				isDisabled:!this.state.isDisabled
-			})
+					isDisabled:!this.state.isDisabled
+				})
 			},
 			render:function(){
 				return (
 					<div>
-						<input type="text" disabled={this.state.isDisabled} />
-						<input type="button" value="点击切换按钮状态" onClick={this.handleClick} />
+						<input type="text" ref="textArea" disabled={this.state.isDisabled} />
+						<input type="button" value="点击切换输入框状态" onClick={this.handleClick}/>
 					</div>
 				)
 			}
 		})
 
 		ReactDOM.render(
-			<LikeButton></LikeButton>,
+			<ToggleInput></ToggleInput>,
 			document.querySelector('#example')
 		)
 	</script>
