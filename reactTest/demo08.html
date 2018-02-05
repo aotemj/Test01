@@ -12,6 +12,46 @@
 	<script type="text/babel">
 		var ToggleInput = React.createClass({
 			getInitialState:function(){
+				return {
+					isDisabled:false
+				}
+			},
+			handleClick:function(){
+				this.setState({
+					isDisabled:!this.state.isDisabled
+				})
+			},
+			render:function(){
+				return (
+					<div>
+						<input type="text" disabled={this.state.isDisabled} />
+						<input type="button" value="点击改变输入框状态" onClick={this.handleClick} />
+					</div>
+				)
+			}
+		})
+		ReactDOM.render(
+			<ToggleInput></ToggleInput>,
+			document.querySelector('#example')
+		)
+	</script>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="./build/react.js"></script>
+	<script src="./build/react-dom.js"></script>
+	<script src="./build/browser.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
+		var ToggleInput = React.createClass({
+			getInitialState:function(){
 				return{
 					isDisabled:true
 				}
@@ -38,7 +78,7 @@
 		)
 	</script>
 </body>
-</html>
+</html> -->
 <!--
 八、this.state
 组件免不了要与用户互动，React 的一大创新，就是将组件看成是一个状态机，一开始有一个初始状态，然后用户互动，导致状态变化，从而触发重新渲染 UI （查看 demo08 ）。
