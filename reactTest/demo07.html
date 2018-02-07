@@ -12,13 +12,14 @@
 	<script type="text/babel">
 		var MyComponent = React.createClass({
 			handleClick:function(){
-				this.refs.textArea.focus();
+				console.log(this);
+				this.refs.textarea.focus();
 			},
 			render:function(){
 				return (
 					<div>
-						<input type="text" ref="textArea" />
-						<input type="button" value="点击获取焦点" onClick={this.handleClick}/>
+						<input type="text" ref="textarea" />
+						<input type="button" value="点击自动对焦" onClick={this.handleClick}/>
 					</div>
 				)
 			}

@@ -10,6 +10,39 @@
 <body>
 	<div id="example"></div>
 	<script type="text/babel">
+
+		var MyTitle = React.createClass({
+			propTypes:{
+
+			},
+			render:function(){
+				return <h1>hello,{this.props.title}</h1>
+			}
+		});
+		ReactDOM.render(
+			<div>
+				<MyTitle key="1" title="xiaoming"></MyTitle>
+				<MyTitle key="2"></MyTitle>
+			</div>,
+			document.querySelector('#example')
+		)
+	</script>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="./build/react.js"></script>
+	<script src="./build/react-dom.js"></script>
+	<script src="./build/browser.min.js"></script>
+</head>
+<body>
+	<div id="example"></div>
+	<script type="text/babel">
 		const data = 666;
 		var MyTitle = React.createClass({
 			getDefaultProps:function(){
@@ -34,7 +67,7 @@
 		)
 	</script>
 </body>
-</html>
+</html> -->
 <!--
 	组件的属性可以接受任意值，字符串、对象、函数等等都可以。有时，我们需要一种机制，验证别人使用组件时，提供的参数是否符合要求。
 
